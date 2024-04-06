@@ -10,7 +10,7 @@ export function createClient() {
     {
       cookies: {
         get(name) {
-          return cookieStore.get(name).value;
+          return cookieStore.get(name)?.value;
         },
         set(name, value, options) {
           try {
