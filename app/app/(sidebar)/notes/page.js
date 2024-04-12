@@ -1,7 +1,19 @@
-import React from 'react';
+import { redirect } from 'next/navigation';
 
-const Notes = () => {
-  return <div>Notes</div>;
-};
+import { createClient } from '@/utils/supabase/server';
+import Notes from './notes';
 
-export default Notes;
+export default async function PrivatePage() {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user) {
+    redirect('/');
+  }
+
+  const { dbdata, dberror } = await supabase.from('todo');
+  console.log(dbdata);
+
+  return <Notes user={data.user} initial={dbdata} />;
+}

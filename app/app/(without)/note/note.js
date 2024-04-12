@@ -1,7 +1,13 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -13,18 +19,25 @@ import Image from '@tiptap/extension-image';
 import Youtube from '@tiptap/extension-youtube';
 import TextAlign from '@tiptap/extension-text-align';
 
-import BubbleMenuComponent from '@/components/BubbleMenuComponent';
-import FloatingMenuComponent from '@/components/FloatingMenuComponent';
 import ToolTip from '@/components/ToolBar';
 import Link from 'next/link';
 
-const Note = () => {
-  // const EDITING_MODE = props.params.id == 'new' ? true : false;
+import { createClient } from '@/utils/supabase/client';
+
+// TODO Change editor output to html instead of json.
+// TODO Add timer for ratelimiting?
+
+const Note = ({ user }) => {
   const search = useSearchParams();
-  console.log(search.get('id'));
+  const isNewNote = search.get('id') == 'new' ? true : false;
+  const [id, setId] = useState(search.get('id'));
 
-  const NEW_MODE = true;
+  const titleInputRef = useRef();
 
+  const [note, setNote] = useState({ title: '', note: '' });
+  const supabase = createClient();
+
+  const [editorReady, setEditorReady] = useState(false);
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -40,73 +53,150 @@ const Note = () => {
         placeholder: 'Your note here',
       }),
     ],
+
+    // Call update (id != new) or insert (id == new)
+    // on clicking out of the editor
+    onBlur: async ({ editor }) => {
+      const _note = editor.getHTML();
+      setNote((prevState) => {
+        return {
+          ...prevState,
+          note: _note,
+        };
+      });
+
+      if (id == 'new') {
+        await insertNote(_note, note.title);
+      } else {
+        await updateNote(_note, note.title);
+      }
+    },
   });
 
-  const [editorReady, setEditorReady] = useState(false);
-  useEffect(() => {
+  // Called when there's already a note
+  async function updateNote(note, title) {
+    title = title || '';
+    note = note || '';
+
+    if (note == '' && title == '') {
+      return;
+    }
+
+    let { data, error } = await supabase.from('note').upsert([
+      {
+        id: id,
+        title: title,
+        note: note,
+        updated_at: new Date(),
+        user_id: user?.id,
+      },
+    ]);
+  }
+
+  // Called when id == new,
+  // once data is inserted, update id internally
+  // further changes will use updateNote
+  async function insertNote(note, title) {
+    title = title || '';
+    note = note || '';
+
+    if (note == '' && title == '') {
+      return;
+    }
+
+    let { data, error } = await supabase
+      .from('note')
+      .insert([
+        {
+          title: title,
+          note: note,
+          updated_at: new Date(),
+          user_id: user?.id,
+        },
+      ])
+      .select();
+
+    setId(data[0].id);
+    search['id'] = data[0].id;
+  }
+
+  // Get data, Set State, Set tiptap editor content,
+  // Set title input data
+  const getData = useCallback(async () => {
+    let { data, error } = await supabase
+      .from('note')
+      .select()
+      .eq('user_id', user.id)
+      .eq('id', search.get('id'))
+      .single();
+
+    setNote(data);
+
     if (editor) {
+      editor.commands.setContent(data.note);
       setEditorReady(true);
     }
-  }, [editor]);
+
+    titleInputRef.current.value = data.title;
+  }, [supabase, user, search, editor]);
+
+  // Will wait till editor is ready
+  // once editor is ready, then check id
+  // if id == new, don't populate anything
+  // if id != new, call getData() and populate editor and title
+  useEffect(() => {
+    if (!editor) {
+      return;
+    }
+
+    if (isNewNote) {
+      setEditorReady(true);
+      return;
+    }
+
+    getData();
+  }, [editor, isNewNote, getData]);
 
   return (
     <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6'>
-      <section className='flex justify-between' id='Buttons'>
+      <section id='BUTTONS' className='flex justify-between'>
         <div>
-          <Link href={'/app/todo'}>Back</Link>
+          <Link href={'/app/notes'}>Back</Link>
         </div>
         <div className='flex flex-row space-x-2'>
-          <p>Done</p>
-          <p>Delete</p>
+          <button>Delete</button>
         </div>
       </section>
 
-      <section id='Title' className='mt-4 md:mt-6 '>
-        {!NEW_MODE ? (
-          <h2 className='text-2xl font-semibold'>
-            Title of Note. This is long enough for test.
-          </h2>
-        ) : (
-          <input
-            className='bg-transparent text-2xl font-semibold w-full'
-            placeholder='Title'
-          />
-        )}
+      <section id='TITLE' className='mt-4 md:mt-6 '>
+        <input
+          onBlur={async (e) => {
+            let title = e.target.value;
+            setNote((prevState) => {
+              return {
+                ...prevState,
+                title: title,
+              };
+            });
+
+            if (id == 'new') {
+              await insertNote(note.note, title);
+            } else {
+              await updateNote(note.note, title);
+            }
+          }}
+          className='bg-transparent text-2xl font-semibold w-full'
+          placeholder='Title'
+          ref={titleInputRef}
+        />
       </section>
 
-      <section id='Body' className='mt-4 text-base font-normal md:mt-6'>
-        {!NEW_MODE ? (
-          <p className='prose'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            <br></br>
-            <br></br>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the induk a galley of type Lorem
-            Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the induk a galley of type Lorem Ipsum is
-            simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the induk a galley of type Lorem Ipsum is simpl=m has
-            been the induk a galley of type Lorem Ipsum is simply dummy text of
-            the printing and typesetting industry. Lorem Ipsum has been the
-            induk a galley of type
-          </p>
-        ) : (
-          <>
-            {editorReady && (
-              <>
-                {/* <BubbleMenuComponent editor={editor}></BubbleMenuComponent>
-                <FloatingMenuComponent editor={editor}></FloatingMenuComponent> */}
-                <ToolTip editor={editor}></ToolTip>
-                <EditorContent editor={editor} placeholder='Your note here' />
-              </>
-            )}
-          </>
+      <section id='BODY' className='mt-4 text-base font-normal md:mt-6'>
+        {editorReady && (
+          <div>
+            <ToolTip editor={editor}></ToolTip>
+            <EditorContent editor={editor} placeholder='Your note here' />
+          </div>
         )}
       </section>
     </div>
