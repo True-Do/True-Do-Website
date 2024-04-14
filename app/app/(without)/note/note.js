@@ -100,7 +100,7 @@ const Note = ({ user }) => {
     title = title || '';
     note = note || '';
 
-    if (note == '' && title == '') {
+    if ((note == '' || note == '<p></p>') && title == '') {
       return;
     }
 

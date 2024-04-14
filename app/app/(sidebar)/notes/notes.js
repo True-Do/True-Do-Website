@@ -29,26 +29,35 @@ const Notes = ({ user, initial }) => {
 
   return (
     <div className='py-4 px-4'>
-      {!loading && (
-        <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 3 }}>
-          <Masonry gutter='1rem'>
-            {notes.map((note) => (
-              <Link href={`/app/note?id=${note.id}`} key={note.id} id={note.id}>
-                <div
+      <div className='h-full'>
+        {!loading && (
+          <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 5 }}>
+            <Masonry gutter='.75rem'>
+              {notes.map((note) => (
+                <Link
+                  href={`/app/note?id=${note.id}`}
                   key={note.id}
-                  className='flex flex-col rounded-xl bg-light-off-white p-4 space-y-2'
+                  id={note.id}
                 >
-                  <h2 className='text-xl font-bold'>{note.title}</h2>
-                  <div className='text-sm'>{parse(note.note)}</div>
-                </div>
-              </Link>
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
-      )}
-      <div id='ADD BUTTON' className=''>
-        <Link href={'/app/note?id=new'} className='fixed bottom-5 left-1/2'>
-          <div className='px-4 py-2 rounded-xl bg-light-off-white'>+</div>
+                  <div
+                    key={note.id}
+                    className='shadow-md flex flex-col rounded-xl bg-light-off-white p-4 space-y-2 hover:bg-white hover:shadow-sm transition-all'
+                  >
+                    <h2 className='text-xl font-bold'>{note.title}</h2>
+                    <div className='text-sm'>{parse(note.note)}</div>
+                  </div>
+                </Link>
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        )}
+      </div>
+
+      <div id='ADD BUTTON' className='fixed bottom-5 left-1/2'>
+        <Link href={'/app/note?id=new'} className=''>
+          <div className='px-4 py-2 rounded-xl bg-light-off-white shadow-md hover:bg-white hover:shadow-sm transition-all'>
+            +
+          </div>
         </Link>
       </div>
     </div>

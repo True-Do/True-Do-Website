@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   console.log();
 
   return (
-    <div className='flex flex-row h-svh'>
+    <div className='flex flex-row screen-size'>
       <section id='SIDEBAR' className=''>
         <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white p-4 space-y-1 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md'>
           <Link
@@ -118,6 +118,7 @@ const Layout = ({ children }) => {
           )}
         </AnimatePresence>
       </section>
+
       <section id='MAIN PAGE' className='flex-1 py-4 h-svh flex flex-col'>
         <div className='flex flex-row ml-4'>
           <button
@@ -135,7 +136,7 @@ const Layout = ({ children }) => {
           </button>
           <h1 className='ml-4 md:ml-0 font-bold text-3xl '>True Do</h1>
         </div>
-        <div className='flex-1'>{children}</div>
+        <div className='flex-1 overflow-y-scroll'>{children}</div>
       </section>
     </div>
   );
