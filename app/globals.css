@@ -63,3 +63,7 @@
 .screen-size {
   min-height: 100svh;
 }
+
+ul[data-type='taskList'] > li {
+  @apply flex flex-row;
+}

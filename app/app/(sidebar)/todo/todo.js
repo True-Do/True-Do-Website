@@ -182,27 +182,9 @@ const Todo = ({ user, initial }) => {
                                 type='text'
                               />
 
-                              <Select
-                                onValueChange={(value) => {
-                                  setTodoCategory(value);
-                                }}
-                              >
-                                <SelectTrigger className='bg-light-off-white border-gray-400 text-black'>
-                                  <SelectValue placeholder='Category' />
-                                </SelectTrigger>
-                                <SelectContent className='bg-white'>
-                                  {categories.map((category) => {
-                                    return (
-                                      <SelectItem
-                                        key={category.id}
-                                        value={category.id}
-                                      >
-                                        {category.category}
-                                      </SelectItem>
-                                    );
-                                  })}
-                                </SelectContent>
-                              </Select>
+                              <p className='text-text-dark p-1'>
+                                Category: {category.category}
+                              </p>
 
                               <div className='flex justify-end mt-3'>
                                 <DialogClose asChild>
@@ -263,58 +245,129 @@ const Todo = ({ user, initial }) => {
         </ResponsiveMasonry>
       </section>
 
-      <div id='ADD BUTTON' className='fixed bottom-5 left-1/2'>
-        <Popover>
-          <PopoverTrigger>
-            <div className='px-4 py-2 rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
-              +
-            </div>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className='flex flex-col'>
-              <Dialog>
-                <DialogTrigger>
-                  <button className='hover:bg-white px-2 py-1 transition-all rounded-lg'>
-                    Add Category
-                  </button>
-                </DialogTrigger>
+      {!loading && (
+        <div id='ADD BUTTON' className='fixed bottom-5 left-1/2'>
+          <Popover>
+            <PopoverTrigger>
+              <div className='p-4 rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
+                <svg
+                  width='15'
+                  height='15'
+                  viewBox='0 0 15 15'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    d='M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z'
+                    fill='currentColor'
+                    fill-rule='evenodd'
+                    clip-rule='evenodd'
+                  ></path>
+                </svg>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className='flex flex-col'>
+                <Dialog>
+                  <DialogTrigger>
+                    <button className='hover:bg-white px-2 py-1 transition-all rounded-lg'>
+                      Add Category
+                    </button>
+                  </DialogTrigger>
 
-                <DialogContent className='bg-light-off-white max-w-xs'>
-                  <DialogHeader>
-                    <DialogTitle className='mb-4'>Add Category</DialogTitle>
-                    <DialogDescription>
-                      <Input
-                        onChange={(event) => {
-                          setAddCategory(event.target.value);
-                        }}
-                        className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:bg-white'
-                        placeholder='Category Name'
-                        type='text'
-                      />
-                      <div className='flex justify-end mt-3'>
-                        <DialogClose asChild>
-                          <Button
-                            onClick={() => {
-                              addCategoryFn();
-                            }}
-                            className=' border-gray-400 bg-transparent text-black hover:bg-white'
-                            variant='outline'
-                          >
-                            Add
-                          </Button>
-                        </DialogClose>
-                      </div>
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>{' '}
-              <button className='hover:bg-white px-2 py-1 transition-all rounded-lg'>
-                Add Todo
-              </button>{' '}
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+                  <DialogContent className='bg-light-off-white max-w-xs'>
+                    <DialogHeader>
+                      <DialogTitle className='mb-4'>Add Category</DialogTitle>
+                      <DialogDescription>
+                        <Input
+                          onChange={(event) => {
+                            setAddCategory(event.target.value);
+                          }}
+                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:bg-white'
+                          placeholder='Category Name'
+                          type='text'
+                        />
+                        <div className='flex justify-end mt-3'>
+                          <DialogClose asChild>
+                            <Button
+                              onClick={() => {
+                                addCategoryFn();
+                              }}
+                              className=' border-gray-400 bg-transparent text-black hover:bg-white'
+                              variant='outline'
+                            >
+                              Add
+                            </Button>
+                          </DialogClose>
+                        </div>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>{' '}
+                <Dialog>
+                  <DialogTrigger>
+                    <button className='hover:bg-white w-full px-2 py-1 transition-all rounded-lg'>
+                      Add Todo
+                    </button>
+                  </DialogTrigger>
+
+                  <DialogContent className='bg-light-off-white max-w-xs'>
+                    <DialogHeader>
+                      <DialogTitle className='mb-4'>Add Todo</DialogTitle>
+                      <DialogDescription>
+                        <Input
+                          onChange={(event) => {
+                            setAddTodo(event.target.value);
+                          }}
+                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus: focus:shadow-md transition-all mb-3'
+                          placeholder='Todo'
+                          type='text'
+                        />
+
+                        <Select
+                          onValueChange={(value) => {
+                            setTodoCategory(value);
+                          }}
+                        >
+                          <SelectTrigger className='bg-light-off-white border-gray-400 text-black'>
+                            <SelectValue placeholder='Category' />
+                          </SelectTrigger>
+                          <SelectContent className='bg-white'>
+                            {categories.map((category) => {
+                              return (
+                                <SelectItem
+                                  key={category.id}
+                                  value={category.id}
+                                >
+                                  {category.category}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectContent>
+                        </Select>
+
+                        <div className='flex justify-end mt-3'>
+                          <DialogClose asChild>
+                            <Button
+                              onClick={() => {
+                                addTodoFn();
+                              }}
+                              className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
+                              variant='outline'
+                            >
+                              Add
+                            </Button>
+                          </DialogClose>
+                        </div>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      )}
     </div>
   );
 };
