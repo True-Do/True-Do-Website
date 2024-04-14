@@ -33,6 +33,12 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { revalidatePath } from 'next/cache';
+import {
+  Cross1Icon,
+  DotsVerticalIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
 
 const Todo = ({ user, initial }) => {
   const [todo, setTodo] = useState();
@@ -141,92 +147,76 @@ const Todo = ({ user, initial }) => {
                     key={category.id}
                     className='m-2 px-4 py-3 rounded-xl bg-light-off-white shadow-md'
                   >
-                    <section id='TOP BAR' className='flex flex-row justify-end'>
-                      <h2 className='text-xl md:text-2xl font-bold flex-1 break-all'>
+                    <div className='flex flex-row items-center'>
+                      <h2 className='text-xl md:text-2xl font-bold flex-1 break-all mb-2'>
                         {category.category}
                       </h2>
-                      <Dialog>
-                        <DialogTrigger>
-                          <Button
-                            size='sm'
-                            variant='outline'
-                            className='bg-light-off-white hover:bg-white transition-all border-none'
-                          >
-                            <svg
-                              width='13'
-                              height='13'
-                              viewBox='0 0 15 15'
-                              fill='none'
-                              xmlns='http://www.w3.org/2000/svg'
-                            >
-                              <path
-                                d='M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z'
-                                fill='currentColor'
-                                fill-rule='evenodd'
-                                clip-rule='evenodd'
-                              ></path>
-                            </svg>
-                          </Button>
-                        </DialogTrigger>
+                      <Popover>
+                        <PopoverTrigger>
+                          <DotsVerticalIcon></DotsVerticalIcon>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <Dialog>
+                            <DialogTrigger>
+                              <Button
+                                size='sm'
+                                variant='outline'
+                                className='bg-light-off-white hover:bg-white transition-all border-none'
+                              >
+                                <PlusIcon></PlusIcon>
+                              </Button>
+                            </DialogTrigger>
 
-                        <DialogContent className='bg-light-off-white max-w-xs'>
-                          <DialogHeader>
-                            <DialogTitle className='mb-4'>Add Todo</DialogTitle>
-                            <DialogDescription>
-                              <Input
-                                onChange={(event) => {
-                                  setAddTodo(event.target.value);
-                                }}
-                                className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus: focus:shadow-md transition-all mb-3'
-                                placeholder='Todo'
-                                type='text'
-                              />
-
-                              <p className='text-text-dark p-1'>
-                                Category: {category.category}
-                              </p>
-
-                              <div className='flex justify-end mt-3'>
-                                <DialogClose asChild>
-                                  <Button
-                                    onClick={() => {
-                                      addTodoFn();
+                            <DialogContent className='bg-light-off-white max-w-xs'>
+                              <DialogHeader>
+                                <DialogTitle className='mb-4'>
+                                  Add Todo
+                                </DialogTitle>
+                                <DialogDescription>
+                                  <Input
+                                    onChange={(event) => {
+                                      setAddTodo(event.target.value);
                                     }}
-                                    className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
-                                    variant='outline'
-                                  >
-                                    Add
-                                  </Button>
-                                </DialogClose>
-                              </div>
-                            </DialogDescription>
-                          </DialogHeader>
-                        </DialogContent>
-                      </Dialog>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        className='bg-light-off-white hover:bg-white transition-all border-none'
-                        onClick={() => {
-                          deleteCategory(category.id);
-                        }}
-                      >
-                        <svg
-                          width='12'
-                          height='12'
-                          viewBox='0 0 15 15'
-                          fill='none'
-                          xmlns='http://www.w3.org/2000/svg'
-                        >
-                          <path
-                            d='M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z'
-                            fill='currentColor'
-                            fill-rule='evenodd'
-                            clip-rule='evenodd'
-                          ></path>
-                        </svg>
-                      </Button>
-                    </section>
+                                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus: focus:shadow-md transition-all mb-3'
+                                    placeholder='Todo'
+                                    type='text'
+                                  />
+
+                                  <p className='text-text-dark p-1'>
+                                    Category - {category.category}
+                                  </p>
+
+                                  <div className='flex justify-end mt-3'>
+                                    <DialogClose asChild>
+                                      <Button
+                                        onClick={() => {
+                                          addTodoFn();
+                                        }}
+                                        className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
+                                        variant='outline'
+                                      >
+                                        Add
+                                      </Button>
+                                    </DialogClose>
+                                  </div>
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
+
+                          <Button
+                            variant='outline'
+                            size='sm'
+                            className='bg-light-off-white hover:bg-white transition-all border-none'
+                            onClick={() => {
+                              deleteCategory(category.id);
+                            }}
+                          >
+                            <TrashIcon></TrashIcon>
+                          </Button>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
 
                     {todo.map((todo) => {
                       if (todo.category == category.id) {
