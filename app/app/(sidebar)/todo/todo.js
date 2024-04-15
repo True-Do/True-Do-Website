@@ -110,7 +110,9 @@ const Todo = ({ user, initial }) => {
     setLoading(false);
   }, [supabase, user.id]);
 
-  async function addTodoFn() {
+  async function addTodoFn(_category) {
+    let final_category = _category || todoCategory;
+
     if (addTodo == '' || addTodo == undefined || addTodo == null) {
       return;
     }
@@ -119,7 +121,7 @@ const Todo = ({ user, initial }) => {
       {
         label: addTodo,
         user_id: user?.id,
-        category: todoCategory,
+        category: final_category,
       },
     ]);
 
@@ -190,7 +192,7 @@ const Todo = ({ user, initial }) => {
                                     <DialogClose asChild>
                                       <Button
                                         onClick={() => {
-                                          addTodoFn();
+                                          addTodoFn(category.id);
                                         }}
                                         className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
                                         variant='outline'
