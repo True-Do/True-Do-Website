@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import React, {
   Suspense,
   useCallback,
@@ -23,11 +23,15 @@ import ToolTip from '@/components/ToolBar';
 import Link from 'next/link';
 
 import { createClient } from '@/utils/supabase/client';
+import { ResetIcon, TrashIcon } from '@radix-ui/react-icons';
+import { useRouter } from 'next/navigation';
 
 // TODO Change editor output to html instead of json.
 // TODO Add timer for ratelimiting?
 
 const Note = ({ user }) => {
+  const router = useRouter();
+
   const search = useSearchParams();
   const isNewNote = search.get('id') == 'new' ? true : false;
   const [id, setId] = useState(search.get('id'));
@@ -120,6 +124,16 @@ const Note = ({ user }) => {
     search['id'] = data[0].id;
   }
 
+  async function deleteNote(note, title) {
+    let { data, error } = await supabase
+      .from('note')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('id', search.get('id'));
+
+    router.replace('/app/notes');
+  }
+
   // Get data, Set State, Set tiptap editor content,
   // Set title input data
   const getData = useCallback(async () => {
@@ -161,10 +175,18 @@ const Note = ({ user }) => {
     <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6'>
       <section id='BUTTONS' className='flex justify-between'>
         <div>
-          <Link href={'/app/notes'}>Back</Link>
+          <Link href={'/app/notes'}>
+            <ResetIcon height={20} width={20} />
+          </Link>
         </div>
         <div className='flex flex-row space-x-2'>
-          <button>Delete</button>
+          <button
+            onClick={() => {
+              deleteNote();
+            }}
+          >
+            <TrashIcon height={20} width={20} />
+          </button>
         </div>
       </section>
 
