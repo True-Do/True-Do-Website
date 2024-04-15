@@ -4,9 +4,6 @@ import { useCallback } from 'react';
 
 import Image from 'next/image';
 
-import bold from '@/public/bold.svg';
-import italics from '@/public/italic.svg';
-
 const iconSize = 20;
 
 const ToolTip = ({ editor }) => {

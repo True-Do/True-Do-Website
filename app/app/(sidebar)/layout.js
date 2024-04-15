@@ -134,9 +134,11 @@ const Layout = ({ children }) => {
               src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPklEQVR4nO3UwQkAIBADwfRflluY1iAYRNyBeweOkEQ/Isk8fNwKHv1/aQOt8jSCLc9bcLnUgsulFlwuPW0B+GG2kNfDhr8AAAAASUVORK5CYII='
             ></Image>
           </button>
-          <h1 className='ml-1 mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl  '>
-            True Do
-          </h1>
+          <Link href={'/'}>
+            <h1 className='ml-1 mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl  '>
+              True Do
+            </h1>
+          </Link>
         </div>
         <div className='flex-1 overflow-y-auto'>{children}</div>
       </section>
