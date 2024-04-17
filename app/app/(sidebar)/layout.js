@@ -10,11 +10,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavItem from '@/components/NavItem';
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+
 const Layout = ({ children }) => {
   const [menu, setMenu] = useState(false);
   const path = usePathname();
-
-  console.log();
 
   return (
     <div className='md:flex md:flex-row screen-size'>
@@ -59,9 +63,23 @@ const Layout = ({ children }) => {
           <NavItem item={'calendar'}>
             <FaCalendar size={20} />
           </NavItem>
-          <NavItem item={'settings'}>
-            <FaGear size={20} />
-          </NavItem>
+          <Popover>
+            <PopoverTrigger>
+              <div
+                className={
+                  'size-10 rounded-md text-center transition-all text-text-dark hover:text-text-light flex items-center justify-center cursor-pointer'
+                }
+              >
+                <div className='flex flex-col justify-center items-center h-full'>
+                  <FaGear size={20}></FaGear>
+                  <p className='text-[.6rem]'>Settings</p>{' '}
+                </div>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent>
+              <button>Logout</button>
+            </PopoverContent>
+          </Popover>
         </div>
       </section>
     </div>

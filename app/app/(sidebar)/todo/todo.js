@@ -154,7 +154,7 @@ const Todo = ({ user, initial }) => {
 
   return (
     <div className='w-full flex flex-col h-full'>
-      <section className='flex-1'>
+      <section className='flex-1 p-1'>
         <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 4 }}>
           <Masonry gutter=''>
             {!loading &&
@@ -162,10 +162,10 @@ const Todo = ({ user, initial }) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-2 px-4 py-3 rounded-xl bg-light-off-white shadow-md'
+                    className='m-1 px-4 py-3 rounded-xl bg-light-off-white shadow-md'
                   >
                     <div className='flex flex-row items-center'>
-                      <h2 className='text-xl md:text-2xl font-bold flex-1 break-all mb-2'>
+                      <h2 className='text-xl md:text-xl font-bold flex-1 break-all mb-2'>
                         {category.category}
                       </h2>
                       <Popover>
@@ -238,7 +238,7 @@ const Todo = ({ user, initial }) => {
                     {todo.map((todo) => {
                       if (todo.category == category.id) {
                         return (
-                          <div key={todo.id} id={todo.id}>
+                          <div key={todo.id} id={todo.id} className='text-base'>
                             <Checkbox
                               onClick={() => {
                                 deleteTodo(todo.id);
@@ -287,7 +287,7 @@ const Todo = ({ user, initial }) => {
                           onChange={(event) => {
                             setAddCategory(event.target.value);
                           }}
-                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:bg-white'
+                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:shadow-md transition-all'
                           placeholder='Category Name'
                           type='text'
                         />
@@ -297,7 +297,7 @@ const Todo = ({ user, initial }) => {
                               onClick={() => {
                                 addCategoryFn();
                               }}
-                              className=' border-gray-400 bg-transparent text-black hover:bg-white'
+                              className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                               variant='outline'
                             >
                               Add

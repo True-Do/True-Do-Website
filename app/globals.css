@@ -67,3 +67,7 @@
 ul[data-type='taskList'] > li {
   @apply flex flex-row;
 }
+
+.notes-preview {
+  @apply break-all;
+}
