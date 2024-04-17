@@ -12,8 +12,5 @@ export default async function PrivatePage() {
     redirect('/');
   }
 
-  const { dbdata, dberror } = await supabase.from('todo');
-  console.log(dbdata);
-
-  return <Todo user={data.user} initial={dbdata} />;
+  return <Todo user={data.user} />;
 }

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import parse from 'html-react-parser';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 const Notes = ({ user, initial }) => {
   const [notes, setNotes] = useState();
@@ -33,30 +34,40 @@ const Notes = ({ user, initial }) => {
         {!loading && (
           <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 5 }}>
             <Masonry gutter='.75rem'>
-              {notes.map((note) => (
-                <Link
-                  href={`/app/note?id=${note.id}`}
-                  key={note.id}
-                  id={note.id}
-                >
-                  <div
+              {notes.map((note) => {
+                let short_note =
+                  note.note.split('><').slice(0, 6).join('><') + '>';
+
+                return (
+                  <Link
+                    href={`/app/note?id=${note.id}`}
                     key={note.id}
-                    className='shadow-md flex flex-col rounded-xl bg-light-off-white p-4 space-y-2 hover:bg-white hover:shadow-sm transition-all'
+                    id={note.id}
                   >
-                    <h2 className='text-xl font-bold'>{note.title}</h2>
-                    <div className='text-sm'>{parse(note.note)}</div>
-                  </div>
-                </Link>
-              ))}
+                    <div
+                      key={note.id}
+                      className='shadow-md flex flex-col rounded-xl bg-light-off-white p-4 space-y-2 hover:bg-white hover:shadow-sm transition-all'
+                    >
+                      <h2 className='text-xl font-bold'>{note.title}</h2>
+                      <div className='text-sm'>{parse(note.note)}</div>
+                    </div>
+                  </Link>
+                );
+              })}
             </Masonry>
           </ResponsiveMasonry>
         )}
       </div>
 
-      <div id='ADD BUTTON' className='fixed bottom-5 left-1/2'>
+      <div
+        id='ADD BUTTON'
+        className='fixed bottom-8 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+      >
         <Link href={'/app/note?id=new'} className=''>
-          <div className='px-4 py-2 rounded-xl bg-light-off-white shadow-md hover:bg-white hover:shadow-sm transition-all'>
-            +
+          <div className='p-2 rounded-full md:p-0 bg-background'>
+            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white shadow-md hover:bg-white hover:shadow-sm transition-all'>
+              <PlusIcon></PlusIcon>
+            </div>
           </div>
         </Link>
       </div>

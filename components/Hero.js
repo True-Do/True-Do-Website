@@ -9,7 +9,7 @@ const Hero = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'tween' }}
       id='HERO'
-      className='text-2xl p-4 font-semibold mt-12 md:text-5xl md:flex md:flex-col md:items-center'
+      className='text-3xl p-3 pl-4 md:p-4 font-semibold mt-8 md:mt-12 md:text-5xl md:flex md:flex-col md:items-center'
     >
       True Do is Your{' '}
       <p className='text-text-light'>

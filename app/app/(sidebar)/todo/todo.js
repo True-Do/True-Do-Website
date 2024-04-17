@@ -110,6 +110,21 @@ const Todo = ({ user, initial }) => {
     setLoading(false);
   }, [supabase, user.id]);
 
+  async function deleteTodo(todo_id) {
+    const { delete_error } = await supabase
+      .from('todo')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('id', todo_id);
+
+    let { data, error } = await supabase
+      .from('todo')
+      .select()
+      .eq('user_id', user.id);
+
+    setTodo(data);
+  }
+
   async function addTodoFn(_category) {
     let final_category = _category || todoCategory;
 
@@ -224,7 +239,12 @@ const Todo = ({ user, initial }) => {
                       if (todo.category == category.id) {
                         return (
                           <div key={todo.id} id={todo.id}>
-                            <Checkbox className='mr-1' />
+                            <Checkbox
+                              onClick={() => {
+                                deleteTodo(todo.id);
+                              }}
+                              className='mr-1'
+                            />
                             {todo.label}
                           </div>
                         );
@@ -238,24 +258,16 @@ const Todo = ({ user, initial }) => {
       </section>
 
       {!loading && (
-        <div id='ADD BUTTON' className='fixed bottom-5 left-1/2'>
+        <div
+          id='ADD BUTTON'
+          className='fixed bottom-6 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+        >
           <Popover>
             <PopoverTrigger>
-              <div className='p-4 rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
-                <svg
-                  width='15'
-                  height='15'
-                  viewBox='0 0 15 15'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    d='M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z'
-                    fill='currentColor'
-                    fill-rule='evenodd'
-                    clip-rule='evenodd'
-                  ></path>
-                </svg>
+              <div className='p-2 rounded-full md:p-0 bg-background'>
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
+                  <PlusIcon></PlusIcon>
+                </div>
               </div>
             </PopoverTrigger>
             <PopoverContent>
