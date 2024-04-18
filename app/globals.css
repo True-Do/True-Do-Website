@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply bg-background;
+}
+
 .tiptap {
   outline: none;
   border: none;
