@@ -16,6 +16,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
+const mobileIconSize = 25;
+
 const Layout = ({ children }) => {
   const [menu, setMenu] = useState(false);
   const path = usePathname();
@@ -51,17 +53,17 @@ const Layout = ({ children }) => {
 
         <div
           id='BOTTOM NAV BAR'
-          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-3/4 m-auto flex flex-row justify-evenly bg-light-off-white p-2 px-2 z-10 rounded-xl my-4 md:hidden shadow-md'
+          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
         >
           <NavItem item={'todo'}>
-            <FaCheckSquare size={20} />
+            <FaCheckSquare size={mobileIconSize} />
           </NavItem>
           <NavItem item={'notes'}>
-            <FaNoteSticky size={20} />
+            <FaNoteSticky size={mobileIconSize} />
           </NavItem>
           <div className='size-10'></div>
           <NavItem item={'calendar'}>
-            <FaCalendar size={20} />
+            <FaCalendar size={mobileIconSize} />
           </NavItem>
           <Popover>
             <PopoverTrigger>
@@ -71,7 +73,7 @@ const Layout = ({ children }) => {
                 }
               >
                 <div className='flex flex-col justify-center items-center h-full'>
-                  <FaGear size={20}></FaGear>
+                  <FaGear size={mobileIconSize}></FaGear>
                   <p className='text-[.6rem]'>Settings</p>{' '}
                 </div>
               </div>

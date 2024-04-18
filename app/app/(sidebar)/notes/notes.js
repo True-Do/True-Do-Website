@@ -63,7 +63,7 @@ const Notes = ({ user, initial }) => {
 
       <div
         id='ADD BUTTON'
-        className='fixed bottom-8 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+        className='fixed bottom-12 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
       >
         <Link href={'/app/note?id=new'} className=''>
           <div className='p-2 rounded-full md:p-0 bg-background'>

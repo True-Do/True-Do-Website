@@ -260,7 +260,7 @@ const Todo = ({ user, initial }) => {
       {!loading && (
         <div
           id='ADD BUTTON'
-          className='fixed bottom-6 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+          className='fixed bottom-10 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
         >
           <Popover>
             <PopoverTrigger>
