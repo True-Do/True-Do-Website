@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/utils/supabase/server';
-import Todo from './note';
+import Note from './note';
 
 export default async function PrivatePage() {
   const supabase = createClient();
@@ -9,11 +9,8 @@ export default async function PrivatePage() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/');
+    redirect('/login');
   }
 
-  const { dbdata, dberror } = await supabase.from('todo');
-  console.log(dbdata);
-
-  return <Todo user={data.user} initial={dbdata} />;
+  return <Note user={data.user} />;
 }

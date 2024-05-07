@@ -9,7 +9,7 @@ export default async function PrivatePage() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/');
+    redirect('/login');
   }
 
   return <Notes user={data.user} />;

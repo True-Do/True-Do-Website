@@ -27,22 +27,4 @@ const NavItem = ({ sidebar, item, children }) => {
   );
 };
 
-const NavItemOld = () => {
-  return (
-    <Link
-      onClick={() => {
-        setMenu(false);
-      }}
-      href={'/app/calendar'}
-      className={
-        path.split('/')[2] == 'calendar'
-          ? 'size-10 rounded-md text-center transition-all bg-text-dark text-light-off-white flex items-center justify-center'
-          : 'size-10 rounded-md text-center transition-all border-[1.5px] border-text-light hover:bg-text-light hover:text-light-off-white flex items-center justify-center'
-      }
-    >
-      C
-    </Link>
-  );
-};
-
 export default NavItem;

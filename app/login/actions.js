@@ -5,6 +5,20 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/utils/supabase/server';
 
+export async function oauth() {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  });
+}
+
 export async function login(formData) {
   const supabase = createClient();
 
@@ -21,7 +35,7 @@ export async function login(formData) {
     redirect('/error');
   }
 
-  revalidatePath('/', 'layout');
+  revalidatePath('/app/todo', 'layout');
   redirect('/app/todo');
 }
 
@@ -41,6 +55,6 @@ export async function signup(formData) {
     redirect('/error');
   }
 
-  revalidatePath('/', 'layout');
-  redirect('/');
+  revalidatePath('/register/confirm', 'layout');
+  redirect('/register/confirm');
 }

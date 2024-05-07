@@ -25,16 +25,28 @@ const Layout = ({ children }) => {
   return (
     <div className='md:flex md:flex-row screen-size'>
       <section id='SIDEBAR' className=''>
-        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md'>
-          <NavItem sidebar={true} item={'todo'}>
-            <FaCheckSquare size={27} />
-          </NavItem>
-          <NavItem sidebar={true} item={'notes'}>
-            <FaNoteSticky size={27} />
-          </NavItem>
-          <NavItem sidebar={true} item={'calendar'}>
-            <FaCalendar size={27} />
-          </NavItem>
+        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
+          <section className='flex flex-col space-y-2'>
+            <NavItem sidebar={true} item={'todo'}>
+              <FaCheckSquare size={27} />
+            </NavItem>
+            <NavItem sidebar={true} item={'notes'}>
+              <FaNoteSticky size={27} />
+            </NavItem>
+            <NavItem sidebar={true} item={'calendar'}>
+              <FaCalendar size={27} />
+            </NavItem>
+          </section>
+          <section>
+            <Popover>
+              <PopoverTrigger>
+                <div className='size-10 rounded-md text-center transition-all text-text-dark hover:text-text-light flex items-center justify-center cursor-pointer'>
+                  <FaGear size={27} />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent></PopoverContent>
+            </Popover>
+          </section>
         </div>
       </section>
 
