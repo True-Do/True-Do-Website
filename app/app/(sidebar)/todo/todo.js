@@ -262,114 +262,44 @@ const Todo = ({ user, initial }) => {
           id='ADD BUTTON'
           className='fixed bottom-10 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
         >
-          <Popover>
-            <PopoverTrigger>
+          <Dialog>
+            <DialogTrigger>
               <div className='p-2 rounded-full md:p-0 bg-background'>
                 <div className='p-4 rounded-full md:rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
                   <PlusIcon></PlusIcon>
                 </div>
               </div>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className='flex flex-col'>
-                <Dialog>
-                  <DialogTrigger>
-                    <button className='hover:bg-white px-2 py-1 transition-all rounded-lg'>
-                      Add Category
-                    </button>
-                  </DialogTrigger>
+            </DialogTrigger>
 
-                  <DialogContent className='bg-light-off-white max-w-xs'>
-                    <DialogHeader>
-                      <DialogTitle className='mb-4'>Add Category</DialogTitle>
-                      <DialogDescription>
-                        <Input
-                          onChange={(event) => {
-                            setAddCategory(event.target.value);
-                          }}
-                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:shadow-md transition-all'
-                          placeholder='Category Name'
-                          type='text'
-                        />
-                        <div className='flex justify-end mt-3'>
-                          <DialogClose asChild>
-                            <Button
-                              onClick={() => {
-                                addCategoryFn();
-                              }}
-                              className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
-                              variant='outline'
-                            >
-                              Add
-                            </Button>
-                          </DialogClose>
-                        </div>
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>{' '}
-                <Dialog>
-                  <DialogTrigger>
-                    <button className='hover:bg-white w-full px-2 py-1 transition-all rounded-lg'>
-                      Add Todo
-                    </button>
-                  </DialogTrigger>
-
-                  <DialogContent className='bg-light-off-white max-w-xs'>
-                    <DialogHeader>
-                      <DialogTitle className='mb-4'>Add Todo</DialogTitle>
-                      <DialogDescription>
-                        <Input
-                          onChange={(event) => {
-                            setAddTodo(event.target.value);
-                          }}
-                          className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus: focus:shadow-md transition-all mb-3'
-                          placeholder='Todo'
-                          type='text'
-                        />
-
-                        <Select
-                          onValueChange={(value) => {
-                            setTodoCategory(value);
-                          }}
-                        >
-                          <SelectTrigger className='bg-light-off-white border-gray-400 text-black'>
-                            <SelectValue placeholder='Category' />
-                          </SelectTrigger>
-                          <SelectContent className='bg-white'>
-                            {categories.map((category) => {
-                              return (
-                                <SelectItem
-                                  key={category.id}
-                                  value={category.id}
-                                >
-                                  {category.category}
-                                </SelectItem>
-                              );
-                            })}
-                          </SelectContent>
-                        </Select>
-
-                        <div className='flex justify-end mt-3'>
-                          <DialogClose asChild>
-                            <Button
-                              onClick={() => {
-                                addTodoFn();
-                              }}
-                              className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
-                              variant='outline'
-                            >
-                              Add
-                            </Button>
-                          </DialogClose>
-                        </div>
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </PopoverContent>
-          </Popover>
+            <DialogContent className='bg-light-off-white max-w-xs'>
+              <DialogHeader>
+                <DialogTitle className='mb-4'>Add Category</DialogTitle>
+                <DialogDescription>
+                  <Input
+                    onChange={(event) => {
+                      setAddCategory(event.target.value);
+                    }}
+                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:shadow-md transition-all'
+                    placeholder='Category Name'
+                    type='text'
+                  />
+                  <div className='flex justify-end mt-3'>
+                    <DialogClose asChild>
+                      <Button
+                        onClick={() => {
+                          addCategoryFn();
+                        }}
+                        className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                        variant='outline'
+                      >
+                        Add
+                      </Button>
+                    </DialogClose>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>{' '}
         </div>
       )}
     </div>

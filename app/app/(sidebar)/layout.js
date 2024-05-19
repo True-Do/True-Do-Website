@@ -44,7 +44,9 @@ const Layout = ({ children }) => {
                   <FaGear size={27} />
                 </div>
               </PopoverTrigger>
-              <PopoverContent></PopoverContent>
+              <PopoverContent>
+                <button>Logout</button>
+              </PopoverContent>
             </Popover>
           </section>
         </div>

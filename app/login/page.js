@@ -83,7 +83,8 @@ export default function LoginPage() {
                 supabase.auth.signInWithOAuth({
                   provider: 'google',
                   options: {
-                    redirectTo: 'http://true-do.vercel.app/auth/callback',
+                    // redirectTo: 'http://true-do.vercel.app/auth/callback',
+                    redirectTo: 'http://localhost:3000/auth/callback',
                     queryParams: {
                       access_type: 'offline',
                       prompt: 'consent',

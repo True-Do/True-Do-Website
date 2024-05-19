@@ -1,29 +1,18 @@
-import Features from '@/components/Features';
-import Hero from '@/components/Hero';
-import Link from 'next/link';
-import React from 'react';
+'use server';
 
-const Home = () => {
-  return (
-    <div className='max-h-svh overflow-hidden'>
-      <section
-        id='TOP BAR'
-        className='flex flex-row justify-between items-center p-4'
-      >
-        <h1 className='flex flex-row font-bold text-3xl'>
-          True <p className='text-text-light'>Do</p>
-        </h1>
-        <div className='space-x-4'>
-          <Link href='/about'>About</Link>
-          <Link href='/app/todo'>App</Link>
-        </div>
-      </section>
+import { redirect } from 'next/navigation';
 
-      <Hero></Hero>
+import { createClient } from '@/utils/supabase/server';
+import Home from './home';
 
-      <Features></Features>
-    </div>
-  );
-};
+export default async function PrivatePage() {
+  const supabase = createClient();
 
-export default Home;
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user) {
+    data.user = null;
+  }
+
+  return <Home user={data.user} />;
+}

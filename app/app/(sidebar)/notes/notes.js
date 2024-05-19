@@ -49,7 +49,7 @@ const Notes = ({ user, initial }) => {
                       className='shadow-md flex flex-col rounded-xl bg-light-off-white p-4 space-y-2 hover:bg-white hover:shadow-sm transition-all'
                     >
                       <h2 className='text-xl font-bold'>{note.title}</h2>
-                      <div className='text-sm notes-preview'>
+                      <div className='text-sm notes-preview text-ellipsis'>
                         {parse(note.note)}
                       </div>
                     </div>
