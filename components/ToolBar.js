@@ -212,8 +212,8 @@ const ToolTip = ({ editor }) => {
               className='dark:text-white'
               height={iconSize}
               width={iconSize}
-              alt='Bullet List'
-              src={Icons['bulletlist-light']}
+              alt='HR'
+              src={Icons['hr-light']}
             ></Image>
           </div>
         </button>
@@ -239,8 +239,8 @@ const ToolTip = ({ editor }) => {
               className='dark:text-white'
               height={iconSize}
               width={iconSize}
-              alt='Bullet List'
-              src={Icons['bulletlist-light']}
+              alt='Left Align'
+              src={Icons['left-light']}
             ></Image>
           </div>
         </button>
@@ -262,8 +262,8 @@ const ToolTip = ({ editor }) => {
               className='dark:text-white'
               height={iconSize}
               width={iconSize}
-              alt='Bullet List'
-              src={Icons['bulletlist-light']}
+              alt='Center Align'
+              src={Icons['center-light']}
             ></Image>
           </div>
         </button>
@@ -285,8 +285,8 @@ const ToolTip = ({ editor }) => {
               className='dark:text-white'
               height={iconSize}
               width={iconSize}
-              alt='Bullet List'
-              src={Icons['bulletlist-light']}
+              alt='Right Align'
+              src={Icons['right-light']}
             ></Image>
           </div>
         </button>
@@ -308,8 +308,8 @@ const ToolTip = ({ editor }) => {
             className='dark:text-white'
             height={iconSize}
             width={iconSize}
-            alt='Bullet List'
-            src={Icons['bulletlist-light']}
+            alt='image'
+            src={Icons['image-light']}
           ></Image>
         </div>
       </button>
