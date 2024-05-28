@@ -199,12 +199,23 @@ const ToolTip = ({ editor }) => {
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
           className={''}
         >
-          <Image
-            height={iconSize}
-            width={iconSize}
-            alt='HR'
-            src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAL0lEQVR4nO3RQQ0AAAgCQPuX1gAGcOrdxh9GBAAAAABP5dI004UMOfsIAAAAAOcVg2G3SeBKR5YAAAAASUVORK5CYII='
-          ></Image>
+          <div className='dark:hidden'>
+            <Image
+              height={iconSize}
+              width={iconSize}
+              alt='HR'
+              src={Icons['hr-dark']}
+            ></Image>
+          </div>
+          <div className='dark:block hidden'>
+            <Image
+              className='dark:text-white'
+              height={iconSize}
+              width={iconSize}
+              alt='Bullet List'
+              src={Icons['bulletlist-light']}
+            ></Image>
+          </div>
         </button>
       </section>
 
@@ -215,48 +226,92 @@ const ToolTip = ({ editor }) => {
           onClick={() => editor.chain().focus().setTextAlign('left').run()}
           className={''}
         >
-          <Image
-            height={iconSize}
-            width={iconSize}
-            alt='Left Align'
-            src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPklEQVR4nO3UwQkAIBADwfRflluY1iAYRNyBeweOkEQ/Isk8fNwKHv1/aQOt8jSCLc9bcLnUgsulFlwuPW0B+GG2kNfDhr8AAAAASUVORK5CYII='
-          ></Image>
+          <div className='dark:hidden'>
+            <Image
+              height={iconSize}
+              width={iconSize}
+              alt='Left Align'
+              src={Icons['left-dark']}
+            ></Image>
+          </div>
+          <div className='dark:block hidden'>
+            <Image
+              className='dark:text-white'
+              height={iconSize}
+              width={iconSize}
+              alt='Bullet List'
+              src={Icons['bulletlist-light']}
+            ></Image>
+          </div>
         </button>
 
         <button
           onClick={() => editor.chain().focus().setTextAlign('center').run()}
           className={''}
         >
-          <Image
-            height={iconSize}
-            width={iconSize}
-            alt='Center Align'
-            src={Icons['center-dark']}
-          ></Image>
+          <div className='dark:hidden'>
+            <Image
+              height={iconSize}
+              width={iconSize}
+              alt='Center Align'
+              src={Icons['center-dark']}
+            ></Image>
+          </div>
+          <div className='dark:block hidden'>
+            <Image
+              className='dark:text-white'
+              height={iconSize}
+              width={iconSize}
+              alt='Bullet List'
+              src={Icons['bulletlist-light']}
+            ></Image>
+          </div>
         </button>
 
         <button
           onClick={() => editor.chain().focus().setTextAlign('right').run()}
           className={''}
         >
-          <Image
-            height={iconSize}
-            width={iconSize}
-            alt='Right Align'
-            src={Icons['right-dark']}
-          ></Image>
+          <div className='dark:hidden'>
+            <Image
+              height={iconSize}
+              width={iconSize}
+              alt='Right Align'
+              src={Icons['right-dark']}
+            ></Image>
+          </div>
+          <div className='dark:block hidden'>
+            <Image
+              className='dark:text-white'
+              height={iconSize}
+              width={iconSize}
+              alt='Bullet List'
+              src={Icons['bulletlist-light']}
+            ></Image>
+          </div>
         </button>
       </section>
 
       <div className='border-r-[1px] border-black my-1'></div>
 
       <button onClick={addImage}>
-        <Image
-          height={iconSize}
-          width={iconSize}
-          alt='image'
-          src={Icons['image-dark']}
-        ></Image>
+        <div className='dark:hidden'>
+          <Image
+            height={iconSize}
+            width={iconSize}
+            alt='image'
+            src={Icons['image-dark']}
+          ></Image>
+        </div>
+        <div className='dark:block hidden'>
+          <Image
+            className='dark:text-white'
+            height={iconSize}
+            width={iconSize}
+            alt='Bullet List'
+            src={Icons['bulletlist-light']}
+          ></Image>
+        </div>
       </button>
     </div>
   );
