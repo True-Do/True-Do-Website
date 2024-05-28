@@ -9,7 +9,7 @@ html {
 .tiptap {
   outline: none;
   border: none;
-  @apply text-text-dark bg-opacity-100;
+  @apply text-text-dark bg-opacity-100 dark:text-white;
 }
 
 .tiptap h1 {

@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
   return (
     <div className='md:flex md:flex-row screen-size'>
       <section id='SIDEBAR' className=''>
-        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
+        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white dark:bg-transparent dark:rounded-none p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
           <section className='flex flex-col space-y-2'>
             <NavItem sidebar={true} item={'todo'}>
               <FaCheckSquare size={27} />
@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
           <section>
             <Popover>
               <PopoverTrigger>
-                <div className='size-10 rounded-md text-center transition-all text-text-dark hover:text-text-light flex items-center justify-center cursor-pointer'>
+                <div className='size-10 rounded-md text-center transition-all text-text-dark dark:text-dark-gray-300 hover:text-text-light hover:dark:text-white flex items-center justify-center cursor-pointer'>
                   <FaGear size={27} />
                 </div>
               </PopoverTrigger>
@@ -53,15 +53,21 @@ const Layout = ({ children }) => {
       </section>
 
       <section id='MAIN PAGE' className='flex-1 max-h-svh flex flex-col'>
-        <div id='TITLE' className='flex flex-row backdrop-blur-xl w-full fixed'>
+        <div
+          id='TITLE'
+          className='flex flex-row backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full fixed dark:block'
+        >
           <Link href={'/'}>
-            <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl flex flex-row'>
+            <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl flex flex-row text-text-dark'>
               True <p className='text-text-light pl-1'>Do</p>
             </h1>
           </Link>
         </div>
 
-        <div id='CHILDREN' className='flex-1 overflow-y-scroll pt-12 pb-24'>
+        <div
+          id='CHILDREN'
+          className='flex-1 overflow-y-scroll pt-12 pb-24 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
+        >
           {children}
         </div>
 

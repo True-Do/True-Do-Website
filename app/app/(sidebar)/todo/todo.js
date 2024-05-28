@@ -197,7 +197,7 @@ const Todo = ({ user, initial }) => {
 
   return (
     <div className='w-full flex flex-col h-full'>
-      <section className='flex-1 p-1'>
+      <section className='flex-1 p-1 '>
         <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 3 }}>
           <Masonry gutter=''>
             {!loading &&
@@ -205,10 +205,17 @@ const Todo = ({ user, initial }) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-1 px-4 py-3 rounded-xl bg-light-off-white shadow-md'
+                    className='m-1 px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md'
                   >
                     <div className='flex flex-row items-center'>
-                      <h2 className='text-xl md:text-xl font-bold flex-1 break-all'>
+                      <h2
+                        className='text-xl md:text-xl font-bold flex-1 break-all cursor-pointer'
+                        onClick={() => {
+                          let _open = { ...open };
+                          _open[category.id] = !_open[category.id];
+                          setOpen(_open);
+                        }}
+                      >
                         {category.category}
                       </h2>
 
@@ -236,15 +243,15 @@ const Todo = ({ user, initial }) => {
                               <Button
                                 size='sm'
                                 variant='outline'
-                                className='bg-light-off-white hover:bg-white transition-all border-none'
+                                className='bg-light-off-white hover:bg-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 transition-all border-none'
                               >
                                 <PlusIcon></PlusIcon>
                               </Button>
                             </DialogTrigger>
 
-                            <DialogContent className='bg-light-off-white max-w-xs'>
+                            <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
                               <DialogHeader>
-                                <DialogTitle className='mb-4'>
+                                <DialogTitle className='mb-4 '>
                                   Add Todo
                                 </DialogTitle>
                                 <DialogDescription>
@@ -252,12 +259,12 @@ const Todo = ({ user, initial }) => {
                                     onChange={(event) => {
                                       setAddTodo(event.target.value);
                                     }}
-                                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus: focus:shadow-md transition-all mb-3'
+                                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 dark:text-white focus:shadow-md transition-all mb-3'
                                     placeholder='Todo'
                                     type='text'
                                   />
 
-                                  <p className='text-text-dark p-1'>
+                                  <p className='text-text-dark dark:text-white p-1'>
                                     Category - {category.category}
                                   </p>
 
@@ -267,7 +274,7 @@ const Todo = ({ user, initial }) => {
                                         onClick={() => {
                                           addTodoFn(category.id);
                                         }}
-                                        className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white transition-all hover:shadow-md'
+                                        className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                                         variant='outline'
                                       >
                                         Add
@@ -282,7 +289,7 @@ const Todo = ({ user, initial }) => {
                           <Button
                             variant='outline'
                             size='sm'
-                            className='bg-light-off-white hover:bg-white transition-all border-none'
+                            className='bg-light-off-white hover:bg-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 transition-all border-none'
                             onClick={() => {
                               deleteCategory(category.id);
                             }}
@@ -330,14 +337,17 @@ const Todo = ({ user, initial }) => {
         >
           <Dialog>
             <DialogTrigger>
-              <div className='p-2 rounded-full md:p-0 bg-background'>
-                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white shadow-md cursor-pointer hover:shadow-sm hover:bg-white transition-all'>
+              <div
+                id='ADD BUTTON'
+                className='p-2 rounded-full md:p-0 bg-background dark:bg-dark-accent'
+              >
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
                   <PlusIcon></PlusIcon>
                 </div>
               </div>
             </DialogTrigger>
 
-            <DialogContent className='bg-light-off-white max-w-xs'>
+            <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
               <DialogHeader>
                 <DialogTitle className='mb-4'>Add Category</DialogTitle>
                 <DialogDescription>
@@ -345,7 +355,7 @@ const Todo = ({ user, initial }) => {
                     onChange={(event) => {
                       setAddCategory(event.target.value);
                     }}
-                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 focus:shadow-md transition-all'
+                    className='bg-light-off-white dark:text-white border-gray-400 outline-none ring-0 focus:shadow-md dark:placeholder:text-white transition-all'
                     placeholder='Category Name'
                     type='text'
                   />
@@ -355,7 +365,7 @@ const Todo = ({ user, initial }) => {
                         onClick={() => {
                           addCategoryFn();
                         }}
-                        className=' border-gray-400 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                        className=' border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                         variant='outline'
                       >
                         Add

@@ -11,8 +11,8 @@ const NavItem = ({ sidebar, item, children }) => {
       href={`/app/${item}`}
       className={
         path.split('/')[2] == item
-          ? 'size-10 rounded-md text-center transition-all text-text-light flex items-center justify-center'
-          : 'size-10 rounded-md text-center transition-all text-text-dark hover:text-text-light flex items-center justify-center'
+          ? 'size-10 rounded-md text-center transition-all text-text-light dark:text-white flex items-center justify-center'
+          : 'size-10 rounded-md text-center transition-all text-text-dark dark:text-dark-gray-300 hover:text-text-light hover:dark:text-white flex items-center justify-center'
       }
     >
       <div className='flex flex-col justify-center items-center h-full'>

@@ -172,7 +172,7 @@ const Note = ({ user }) => {
   }, [editor, isNewNote, getData]);
 
   return (
-    <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6 dark:bg-black'>
+    <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6 dark:bg-dark-gray-800 dark:text-white'>
       <section id='BUTTONS' className='flex justify-between'>
         <div>
           <Link href={'/app/notes'}>
@@ -190,7 +190,7 @@ const Note = ({ user }) => {
         </div>
       </section>
 
-      <section id='TITLE' className='mt-4 md:mt-6 '>
+      <section id='TITLE' className='mt-4 md:mt-6 dark:placeholder:text-white'>
         <input
           onBlur={async (e) => {
             let title = e.target.value;
@@ -207,7 +207,7 @@ const Note = ({ user }) => {
               await updateNote(note.note, title);
             }
           }}
-          className='bg-transparent text-2xl font-semibold w-full'
+          className='bg-transparent text-2xl font-semibold w-full dark:placeholder:text-white'
           placeholder='Title'
           ref={titleInputRef}
         />

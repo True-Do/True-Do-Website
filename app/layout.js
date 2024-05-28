@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={jakarta.className}>
-        <main className='bg-background text-text-dark screen-size'>
+        <main className='bg-background text-text-dark screen-size dark:bg-black dark:text-white'>
           {children}
         </main>
       </body>

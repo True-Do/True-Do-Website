@@ -35,9 +35,6 @@ const Notes = ({ user, initial }) => {
           <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 5 }}>
             <Masonry gutter='.75rem'>
               {notes.map((note) => {
-                let short_note =
-                  note.note.split('><').slice(0, 6).join('><') + '>';
-
                 return (
                   <Link
                     href={`/app/note?id=${note.id}`}
@@ -46,9 +43,11 @@ const Notes = ({ user, initial }) => {
                   >
                     <div
                       key={note.id}
-                      className='shadow-md flex flex-col rounded-xl bg-light-off-white p-4 space-y-2 hover:bg-white hover:shadow-sm transition-all'
+                      className='shadow-md flex flex-col rounded-xl bg-light-off-white dark:bg-dark-accent p-4 space-y-2 hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'
                     >
-                      <h2 className='text-xl font-bold'>{note.title}</h2>
+                      <h2 className='text-xl font-bold break-words'>
+                        {note.title}
+                      </h2>
                       <div className='text-sm notes-preview text-ellipsis'>
                         {parse(
                           clip(note.note, 140, { html: true, maxLines: 5 })
@@ -69,7 +68,7 @@ const Notes = ({ user, initial }) => {
       >
         <Link href={'/app/note?id=new'} className=''>
           <div className='p-2 rounded-full md:p-0 bg-background'>
-            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white shadow-md hover:bg-white hover:shadow-sm transition-all'>
+            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'>
               <PlusIcon></PlusIcon>
             </div>
           </div>
