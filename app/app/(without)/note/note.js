@@ -172,7 +172,7 @@ const Note = ({ user }) => {
   }, [editor, isNewNote, getData]);
 
   return (
-    <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6'>
+    <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6 dark:bg-black'>
       <section id='BUTTONS' className='flex justify-between'>
         <div>
           <Link href={'/app/notes'}>
