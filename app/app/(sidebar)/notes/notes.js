@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import parse from 'html-react-parser';
+import clip from 'text-clipper';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { PlusIcon } from '@radix-ui/react-icons';
@@ -11,7 +12,6 @@ import { PlusIcon } from '@radix-ui/react-icons';
 const Notes = ({ user, initial }) => {
   const [notes, setNotes] = useState();
   const [loading, setLoading] = useState(true);
-  const [insertTodo, setInsertTodo] = useState('');
   const supabase = createClient();
 
   const getData = useCallback(async () => {
@@ -50,7 +50,9 @@ const Notes = ({ user, initial }) => {
                     >
                       <h2 className='text-xl font-bold'>{note.title}</h2>
                       <div className='text-sm notes-preview text-ellipsis'>
-                        {parse(note.note)}
+                        {parse(
+                          clip(note.note, 140, { html: true, maxLines: 5 })
+                        )}
                       </div>
                     </div>
                   </Link>
