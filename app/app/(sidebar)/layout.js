@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
 
 const mobileIconSize = 25;
 
@@ -59,7 +60,8 @@ const Layout = ({ children }) => {
         >
           <Link href={'/'}>
             <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl flex flex-row text-text-dark'>
-              True <p className='text-text-light pl-1'>Do</p>
+              <span className='dark:text-text-light'>True</span>{' '}
+              <span className='text-text-light pl-1'>Do</span>
             </h1>
           </Link>
         </div>
@@ -73,7 +75,7 @@ const Layout = ({ children }) => {
 
         <div
           id='BOTTOM NAV BAR'
-          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
+          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
         >
           <NavItem item={'todo'}>
             <FaCheckSquare size={mobileIconSize} />
@@ -89,7 +91,7 @@ const Layout = ({ children }) => {
             <PopoverTrigger>
               <div
                 className={
-                  'size-10 rounded-md text-center transition-all text-text-dark hover:text-text-light flex items-center justify-center cursor-pointer'
+                  'size-10 rounded-md text-center transition-all text-text-dark dark:text-dark-gray-300 hover:text-text-light hover:dark:text-white flex items-center justify-center cursor-pointer'
                 }
               >
                 <div className='flex flex-col justify-center items-center h-full'>
@@ -98,8 +100,10 @@ const Layout = ({ children }) => {
                 </div>
               </div>
             </PopoverTrigger>
-            <PopoverContent>
-              <button>Logout</button>
+            <PopoverContent className='dark:bg-dark-gray-700 p-2'>
+              <Button className='dark:bg-transparent dark:hover:bg-dark-gray-500 dark:text-white'>
+                Logout
+              </Button>
             </PopoverContent>
           </Popover>
         </div>

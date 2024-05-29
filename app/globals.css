@@ -20,12 +20,28 @@ html {
   @apply text-2xl font-medium mb-1;
 }
 
+ul {
+  @apply list-disc px-3;
+}
+
+ol {
+  @apply list-decimal px-3;
+}
+
+ul[data-type='taskList'] {
+  @apply list-disc px-0;
+}
+
+li > label {
+  @apply pr-1;
+}
+
 .tiptap ul {
-  @apply list-disc px-6;
+  @apply list-disc pl-6;
 }
 
 .tiptap ol {
-  @apply list-decimal px-6;
+  @apply list-decimal pl-6;
 }
 
 .tiptap hr {

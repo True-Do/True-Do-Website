@@ -339,9 +339,9 @@ const Todo = ({ user, initial }) => {
             <DialogTrigger>
               <div
                 id='ADD BUTTON'
-                className='p-2 rounded-full md:p-0 bg-background dark:bg-dark-accent'
+                className='p-2 rounded-full md:p-0 bg-background dark:bg-black'
               >
-                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
                   <PlusIcon></PlusIcon>
                 </div>
               </div>

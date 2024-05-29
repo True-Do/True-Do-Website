@@ -67,8 +67,8 @@ const Notes = ({ user, initial }) => {
         className='fixed bottom-12 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
       >
         <Link href={'/app/note?id=new'} className=''>
-          <div className='p-2 rounded-full md:p-0 bg-background'>
-            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'>
+          <div className='p-2 rounded-full md:p-0 bg-background dark:bg-black'>
+            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'>
               <PlusIcon></PlusIcon>
             </div>
           </div>
