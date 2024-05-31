@@ -74,7 +74,7 @@ const Todo = ({ user, initial }) => {
     setCategories(data);
   }
 
-  async function addCategoryFn() {
+  async function handleAddCategory() {
     if (addCategory == '' || addCategory == undefined || addCategory == null) {
       return;
     }
@@ -129,7 +129,7 @@ const Todo = ({ user, initial }) => {
     setTodo(data);
   }
 
-  async function addTodoFn(category_id) {
+  async function handleAddTodo(category_id) {
     if (addTodo == '' || addTodo == undefined || addTodo == null) {
       return;
     }
@@ -272,7 +272,7 @@ const Todo = ({ user, initial }) => {
                                     <DialogClose asChild>
                                       <Button
                                         onClick={() => {
-                                          addTodoFn(category.id);
+                                          handleAddTodo(category.id);
                                         }}
                                         className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                                         variant='outline'
@@ -363,7 +363,7 @@ const Todo = ({ user, initial }) => {
                     <DialogClose asChild>
                       <Button
                         onClick={() => {
-                          addCategoryFn();
+                          handleAddCategory();
                         }}
                         className=' border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                         variant='outline'

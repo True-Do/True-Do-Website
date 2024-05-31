@@ -2,30 +2,138 @@
 
 import { Calendar } from '@/components/ui/calendar';
 import { useState } from 'react';
+import { createClient } from '@/utils/supabase/client';
 
-const CalendarPage = () => {
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+
+import {
+  Cross1Icon,
+  DotsVerticalIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+
+const CalendarPage = ({ user }) => {
   const [date, setDate] = useState(new Date());
+  const [addCalendar, setAddCalendar] = useState();
+  const [loading, setLoading] = useState(false); //TODO: Implement this
+  const [calendarItems, setCalendarItems] = useState();
+  const [daysWithItems, setDaysWithItems] = useState([]);
+  const supabase = createClient();
+
+  async function handleAddCalendar(date) {
+    if (addCalendar == '' || addCalendar == undefined || addCalendar == null) {
+      return;
+    }
+
+    const { insert_error } = await supabase.from('calendar').insert([
+      {
+        label: addCalendar,
+        user_id: user?.id,
+        date: date,
+        recurring: false,
+      },
+    ]);
+
+    console.log(insert_error);
+
+    let { data, error } = await supabase
+      .from('calendar')
+      .select()
+      .eq('user_id', user.id);
+
+    setCalendarItems(data);
+  }
 
   return (
-    <div className='h-[80vh] mt-1 w-full flex items-center'>
-      <div className='h-full w-full flex flex-row items-center justify-center px-20'>
-        <section className='w-full  flex items-center justify-center'>
-          <Calendar
-            mode='single'
-            selected={date}
-            onSelect={setDate}
-            className='rounded-md border'
-          />
-        </section>
-        <section className='w-full p-8'>
-          <ul className='list-disc'>
-            <li>Do this</li>
-            <li>Do this</li>
-            <li>Do this</li>
-            <li>Do this</li>
-          </ul>
-        </section>
+    <div className='h-[80vh] mt-1 w-full flex  items-center'>
+      <div className='h-full w-full flex flex-col md:flex-row items-center justify-center px-20'>
+        {!loading && (
+          <>
+            <section className='w-full  flex items-center justify-center'>
+              <Calendar
+                formatters={{
+                  formatDay: (date) => {
+                    let returnString = date.getDate();
+                    return returnString;
+                  },
+                }}
+                mode='single'
+                selected={date}
+                onSelect={setDate}
+                className='rounded-md border'
+              />
+            </section>
+            <section className='w-full p-8'>
+              <ul className='list-disc'>
+                <li>Do this</li>
+                <li>Do this</li>
+                <li>Do this</li>
+                <li>Do this</li>
+              </ul>
+            </section>
+          </>
+        )}
       </div>
+
+      {!loading && (
+        <div
+          id='ADD BUTTON'
+          className='fixed bottom-10 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+        >
+          <Dialog>
+            <DialogTrigger>
+              <div
+                id='ADD BUTTON'
+                className='p-2 rounded-full md:p-0 bg-background dark:bg-black'
+              >
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
+                  <PlusIcon></PlusIcon>
+                </div>
+              </div>
+            </DialogTrigger>
+
+            <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
+              <DialogHeader>
+                <DialogTitle className='mb-4'>Add Calendar Item</DialogTitle>
+                <DialogDescription>
+                  <Input
+                    onChange={(event) => {
+                      setAddCalendar(event.target.value);
+                    }}
+                    className='bg-light-off-white dark:text-white border-gray-400 outline-none ring-0 focus:shadow-md dark:placeholder:text-white transition-all'
+                    placeholder='Calendar Item'
+                    type='text'
+                  />
+                  <div className='flex justify-end mt-3'>
+                    <DialogClose asChild>
+                      <Button
+                        onClick={() => {
+                          handleAddCalendar();
+                        }}
+                        className=' border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                        variant='outline'
+                      >
+                        Add
+                      </Button>
+                    </DialogClose>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>{' '}
+        </div>
+      )}
     </div>
   );
 };
