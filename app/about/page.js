@@ -6,7 +6,7 @@ const About = () => {
     <div>
       <section
         id='TOP BAR'
-        className='flex flex-row justify-between items-center p-4 sticky top-0 bg-background'
+        className='flex flex-row justify-between items-center p-4 sticky top-0 bg-background dark:bg-black'
       >
         <Link href={'/'}>
           <h1 className='flex flex-row font-bold text-3xl'>
