@@ -17,9 +17,9 @@ export default function LoginPage() {
       <div className='w-full hidden md:block bg-[url("/about-1.jpg")]'></div>
       <div className='w-full h-full fixed md:hidden bg-[url("/about-1.jpg")]'></div>
 
-      <div className='z-10 flex items-center justify-center w-3/4 h-[75svh] md:h-svh my-auto'>
-        <div className='w-full h-full md:min-h-svh flex flex-col items-center justify-center bg-light-off-white dark:bg-black rounded-3xl md:rounded-none'>
-          <div className='w-1/2 '>
+      <div className='z-10 flex items-center justify-center w-5/6 h-[85svh] md:h-svh my-auto'>
+        <div className='w-full h-full md:min-h-svh flex flex-col items-center justify-center bg-light-off-white dark:bg-black rounded-xl md:rounded-none'>
+          <div className='w-full px-10 md:w-1/2 md:px-0'>
             <h1 className='text-[1.7rem] font-bold mb-2'>
               Login to True <span className='text-text-light'>Do</span>
             </h1>
@@ -30,7 +30,7 @@ export default function LoginPage() {
             </p>
 
             <form className='flex flex-col'>
-              <Label className='mb-1' htmlFor='email'>
+              <Label className='mb-3' htmlFor='email'>
                 Email Address
               </Label>
               <Input
@@ -41,7 +41,7 @@ export default function LoginPage() {
                 type='email'
                 required
               />
-              <Label className='mt-5 mb-1' htmlFor='password'>
+              <Label className='mt-5 mb-3' htmlFor='password'>
                 Password
               </Label>
 
