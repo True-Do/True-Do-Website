@@ -1,7 +1,7 @@
 'use client';
 
 import { Calendar } from '@/components/ui/calendar';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 
 import {
@@ -26,26 +26,27 @@ import { Button } from '@/components/ui/button';
 const CalendarPage = ({ user }) => {
   const [date, setDate] = useState(new Date());
   const [addCalendar, setAddCalendar] = useState();
-  const [loading, setLoading] = useState(false); //TODO: Implement this
+  const [loading, setLoading] = useState(true);
   const [calendarItems, setCalendarItems] = useState();
   const [daysWithItems, setDaysWithItems] = useState([]);
   const supabase = createClient();
 
-  async function handleAddCalendar(date) {
-    if (addCalendar == '' || addCalendar == undefined || addCalendar == null) {
-      return;
-    }
+  const getCalendarItems = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('calendar')
+      .select()
+      .eq('user_id', user.id);
 
-    const { insert_error } = await supabase.from('calendar').insert([
-      {
-        label: addCalendar,
-        user_id: user?.id,
-        date: date,
-        recurring: false,
-      },
-    ]);
+    setCalendarItems(data);
+    setLoading(false);
+  }, [supabase, user.id]);
 
-    console.log(insert_error);
+  async function deleteCalendarItem(calendar_id) {
+    const { delete_error } = await supabase
+      .from('calendar')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('id', calendar_id);
 
     let { data, error } = await supabase
       .from('calendar')
@@ -54,6 +55,32 @@ const CalendarPage = ({ user }) => {
 
     setCalendarItems(data);
   }
+
+  async function handleAddCalendar() {
+    if (addCalendar == '' || addCalendar == undefined || addCalendar == null) {
+      return;
+    }
+
+    const { insert_error } = await supabase.from('calendar').insert([
+      {
+        item: addCalendar,
+        user_id: user?.id,
+        date: date,
+        recurring: false,
+      },
+    ]);
+
+    let { data, error } = await supabase
+      .from('calendar')
+      .select()
+      .eq('user_id', user.id);
+
+    setCalendarItems(data);
+  }
+
+  useEffect(() => {
+    getCalendarItems();
+  }, [getCalendarItems]);
 
   return (
     <div className='h-[80vh] mt-1 w-full flex  items-center'>
@@ -70,16 +97,35 @@ const CalendarPage = ({ user }) => {
                 }}
                 mode='single'
                 selected={date}
-                onSelect={setDate}
+                onSelect={(e) => {
+                  setDate(e);
+                }}
                 className='rounded-md border'
               />
             </section>
             <section className='w-full p-8'>
               <ul className='list-disc'>
-                <li>Do this</li>
-                <li>Do this</li>
-                <li>Do this</li>
-                <li>Do this</li>
+                {calendarItems.map((item) => {
+                  // TODO Potential timezone problem?
+                  let itemDateWithoutTime = new Date(item.date);
+                  if (
+                    itemDateWithoutTime.toDateString() != date.toDateString()
+                  ) {
+                    return;
+                  }
+                  return (
+                    <li className='flex flex-row' key={item.id}>
+                      <span className='flex-1'>{item.item}</span>
+                      <button
+                        onClick={() => {
+                          deleteCalendarItem(item.id);
+                        }}
+                      >
+                        <TrashIcon height={28}></TrashIcon>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </>
