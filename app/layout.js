@@ -13,11 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
+    <html
+      lang='en'
+      className='bg-background text-text-dark dark:bg-dark-bg dark:text-text-main-dark'
+    >
       <body className={jakarta.className}>
-        <main className='bg-background text-text-dark screen-size dark:bg-black dark:text-white'>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

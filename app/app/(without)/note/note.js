@@ -19,7 +19,7 @@ import Image from '@tiptap/extension-image';
 import Youtube from '@tiptap/extension-youtube';
 import TextAlign from '@tiptap/extension-text-align';
 
-import ToolTip from '@/components/ToolBar';
+import ToolTip from '@/components/sidebar/ToolBar';
 import Link from 'next/link';
 
 import { createClient } from '@/utils/supabase/client';

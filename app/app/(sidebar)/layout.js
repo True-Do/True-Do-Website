@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import NavItem from '@/components/NavItem';
+import NavItem from '@/components/sidebar/NavItem';
 
 import {
   Popover,
@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
   const path = usePathname();
 
   return (
-    <div className='md:flex md:flex-row screen-size'>
+    <div className='md:flex md:flex-row screen-size bg-black'>
       <section id='SIDEBAR' className=''>
         <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white dark:bg-transparent dark:rounded-none p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
           <section className='flex flex-col space-y-2'>
@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
                 </div>
               </PopoverTrigger>
               <PopoverContent>
-                <button>Logout</button>
+                <Link href={'/auth/logout'}>Logout</Link>
               </PopoverContent>
             </Popover>
           </section>
@@ -101,9 +101,12 @@ const Layout = ({ children }) => {
               </div>
             </PopoverTrigger>
             <PopoverContent className='dark:bg-dark-gray-700 p-2'>
-              <Button className='dark:bg-transparent dark:hover:bg-dark-gray-500 dark:text-white'>
+              <Link
+                href={'/auth/logout'}
+                className='dark:bg-transparent dark:hover:bg-dark-gray-500 dark:text-white'
+              >
                 Logout
-              </Button>
+              </Link>
             </PopoverContent>
           </Popover>
         </div>

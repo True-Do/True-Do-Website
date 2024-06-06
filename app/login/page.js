@@ -17,8 +17,8 @@ export default function LoginPage() {
       <div className='w-full hidden md:block bg-[url("/about-1.jpg")]'></div>
       <div className='w-full h-full fixed md:hidden bg-[url("/about-1.jpg")]'></div>
 
-      <div className='z-10 flex items-center justify-center w-5/6 h-[85svh] md:h-svh my-auto'>
-        <div className='w-full h-full md:min-h-svh flex flex-col items-center justify-center bg-light-off-white dark:bg-black rounded-xl md:rounded-none'>
+      <div className='z-10 flex items-center justify-center w-5/6 h-auto md:h-svh my-auto'>
+        <div className='w-full h-full md:min-h-svh flex flex-col items-center justify-center bg-light-off-white dark:bg-black rounded-xl md:rounded-none py-24'>
           <div className='w-full px-10 md:w-1/2 md:px-0'>
             <h1 className='text-[1.7rem] font-bold mb-2'>
               Login to True <span className='text-text-light'>Do</span>

@@ -30,10 +30,12 @@ module.exports = {
         'text-dark': '#344E41',
         'text-light': '#4cac7c',
 
+        'dark-bg': '#181818',
         'dark-accent-hover': '#212124',
         'dark-accent': '#18181B',
         'text-dark-1': '#344E41',
         'text-dark-2': '#F7F5E9',
+        'text-main-dark': '#eefce3',
 
         'dark-green': {
           100: '#d6dcd9',
