@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/server';
 export async function GET(request) {
   const supabase = createClient();
 
-  supabase.auth.signOut();
+  await supabase.auth.signOut();
 
   const redirectTo = request.nextUrl.clone();
 
