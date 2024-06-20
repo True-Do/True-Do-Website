@@ -7,6 +7,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
+  manifest: '/manifest.json',
   title: 'True Do',
   description: 'True Do is Your Productivity Powerhouse',
 };
