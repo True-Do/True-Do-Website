@@ -104,6 +104,7 @@ const Todo = ({ user, initial }) => {
   //. TODO
   // =====
   const getTodo = useCallback(async () => {
+    // TODO Add some form of caching here.
     const { data, error } = await supabase
       .from('todo')
       .select()
@@ -233,59 +234,59 @@ const Todo = ({ user, initial }) => {
                         )}
                       </button>
 
+                      <Dialog>
+                        <DialogTrigger>
+                          <Button
+                            size='sm'
+                            variant='outline'
+                            className='bg-light-off-white hover:bg-white dark:bg-dark-gray-500 hover:dark:bg-dark-gray-500 border-none'
+                          >
+                            <PlusIcon></PlusIcon>
+                          </Button>
+                        </DialogTrigger>
+
+                        <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
+                          <DialogHeader>
+                            <DialogTitle className='mb-4 '>
+                              Add Todo
+                            </DialogTitle>
+                            <DialogDescription>
+                              <Input
+                                onChange={(event) => {
+                                  setAddTodo(event.target.value);
+                                }}
+                                className='bg-light-off-white border-gray-400 outline-none text-black ring-0 dark:text-white focus:shadow-md transition-all mb-3'
+                                placeholder='Todo'
+                                type='text'
+                              />
+
+                              <p className='text-text-dark dark:text-white p-1'>
+                                Category - {category.category}
+                              </p>
+
+                              <div className='flex justify-end mt-3'>
+                                <DialogClose asChild>
+                                  <Button
+                                    onClick={() => {
+                                      handleAddTodo(category.id);
+                                    }}
+                                    className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                                    variant='outline'
+                                  >
+                                    Add
+                                  </Button>
+                                </DialogClose>
+                              </div>
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+
                       <Popover>
                         <PopoverTrigger>
                           <DotsVerticalIcon></DotsVerticalIcon>
                         </PopoverTrigger>
                         <PopoverContent>
-                          <Dialog>
-                            <DialogTrigger>
-                              <Button
-                                size='sm'
-                                variant='outline'
-                                className='bg-light-off-white hover:bg-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 transition-all border-none'
-                              >
-                                <PlusIcon></PlusIcon>
-                              </Button>
-                            </DialogTrigger>
-
-                            <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
-                              <DialogHeader>
-                                <DialogTitle className='mb-4 '>
-                                  Add Todo
-                                </DialogTitle>
-                                <DialogDescription>
-                                  <Input
-                                    onChange={(event) => {
-                                      setAddTodo(event.target.value);
-                                    }}
-                                    className='bg-light-off-white border-gray-400 outline-none text-black ring-0 dark:text-white focus:shadow-md transition-all mb-3'
-                                    placeholder='Todo'
-                                    type='text'
-                                  />
-
-                                  <p className='text-text-dark dark:text-white p-1'>
-                                    Category - {category.category}
-                                  </p>
-
-                                  <div className='flex justify-end mt-3'>
-                                    <DialogClose asChild>
-                                      <Button
-                                        onClick={() => {
-                                          handleAddTodo(category.id);
-                                        }}
-                                        className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
-                                        variant='outline'
-                                      >
-                                        Add
-                                      </Button>
-                                    </DialogClose>
-                                  </div>
-                                </DialogDescription>
-                              </DialogHeader>
-                            </DialogContent>
-                          </Dialog>
-
                           <Button
                             variant='outline'
                             size='sm'
