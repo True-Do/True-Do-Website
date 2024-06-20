@@ -32,7 +32,7 @@
   ],
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
-  "start_url": "/",
+  "start_url": "/app/todo",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait"
