@@ -71,6 +71,9 @@ const Todo = ({ user, initial }) => {
       .select()
       .eq('user_id', user.id);
 
+    localStorage.setItem('todo-data', JSON.stringify(data));
+    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
+
     setCategories(data);
   }
 
@@ -91,6 +94,9 @@ const Todo = ({ user, initial }) => {
       .select()
       .eq('user_id', user.id);
 
+    localStorage.setItem('todo-data', JSON.stringify(data));
+    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
+
     let _open = {};
     data.map((category) => {
       _open[category.id] = false;
@@ -103,17 +109,43 @@ const Todo = ({ user, initial }) => {
   // =====
   //. TODO
   // =====
-  const getTodo = useCallback(async () => {
-    // TODO Add some form of caching here.
+  const getTodo = async () => {
+    // TODO Add a forced refresh button somewhere
+    const cacheUpdateTime = 60;
+
+    let cachedData = localStorage.getItem('todo-data') || null;
+    let parsedCachedData = JSON.parse(cachedData);
+
+    if (cachedData || cachedData != {}) {
+      await getCategories(parsedCachedData);
+      setTodo(parsedCachedData);
+      setLoading(false);
+
+      console.log('old data');
+    }
+
+    let cachedTime = localStorage.getItem('todo-fetch-time') || null;
+    let parsedCachedTime = parseInt(cachedTime);
+
+    // Trigger when refresh timer is done
+
+    if (Math.floor((Date.now() - parsedCachedTime) / 1000) < cacheUpdateTime) {
+      return;
+    }
+
     const { data, error } = await supabase
       .from('todo')
       .select()
       .eq('user_id', user.id);
 
+    localStorage.setItem('todo-data', JSON.stringify(data));
+    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
+
     await getCategories(data);
     setTodo(data);
     setLoading(false);
-  }, [supabase, user.id]);
+    console.log('fresh data');
+  };
 
   async function deleteTodo(todo_id) {
     const { delete_error } = await supabase
@@ -126,6 +158,9 @@ const Todo = ({ user, initial }) => {
       .from('todo')
       .select()
       .eq('user_id', user.id);
+
+    localStorage.setItem('todo-data', JSON.stringify(data));
+    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
 
     setTodo(data);
   }
@@ -148,6 +183,9 @@ const Todo = ({ user, initial }) => {
       .select()
       .eq('user_id', user.id);
 
+    localStorage.setItem('todo-data', JSON.stringify(data));
+    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
+
     let _open = { ...open };
     _open[category_id] = true;
     setOpen(_open);
@@ -156,7 +194,7 @@ const Todo = ({ user, initial }) => {
 
   useEffect(() => {
     getTodo();
-  }, [getTodo]);
+  }, []);
 
   function OpenIcon() {
     return (

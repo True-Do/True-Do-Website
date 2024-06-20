@@ -5,8 +5,15 @@
       "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "npm: dev",
+      "label": "npm run dev",
       "detail": "next dev",
+      "runOptions": { "runOn": "folderOpen" },
+      "isBackground": true
+    },
+    {
+      "type": "shell",
+      "label": "open devsite",
+      "command": "start http://localhost:3000 && exit",
       "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
     }

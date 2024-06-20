@@ -21,7 +21,8 @@
     {
       "src": "./logo512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "maskable_icon_x512.png",
@@ -35,5 +36,8 @@
   "start_url": "/app/todo",
   "scope": ".",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "short_name": "TrueDo",
+  "dir": "ltr",
+  "categories": ["productivity"]
 }
