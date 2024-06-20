@@ -116,7 +116,7 @@ const Todo = ({ user, initial }) => {
     let cachedData = localStorage.getItem('todo-data') || null;
     let parsedCachedData = JSON.parse(cachedData);
 
-    if (cachedData || cachedData != {}) {
+    if (cachedData && cachedData != {}) {
       await getCategories(parsedCachedData);
       setTodo(parsedCachedData);
       setLoading(false);

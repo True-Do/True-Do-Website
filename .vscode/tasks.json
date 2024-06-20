@@ -16,6 +16,13 @@
       "command": "start http://localhost:3000 && exit",
       "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
+    },
+    {
+      "type": "shell",
+      "label": "git commit",
+      "command": "git add . && git commit -a && git push origin HEAD:main",
+      "runOptions": { "runOn": "folderOpen" },
+      "isBackground": true
     }
   ]
 }
