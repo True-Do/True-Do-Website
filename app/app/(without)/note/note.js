@@ -26,7 +26,6 @@ import { createClient } from '@/utils/supabase/client';
 import { ResetIcon, TrashIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/navigation';
 
-// TODO Change editor output to html instead of json.
 // TODO Add timer for ratelimiting?
 
 const Note = ({ user }) => {

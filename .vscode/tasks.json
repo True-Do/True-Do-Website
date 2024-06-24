@@ -21,7 +21,6 @@
       "type": "shell",
       "label": "git commit",
       "command": "git add . && git commit -a && git push origin HEAD:main",
-      "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
     }
   ]

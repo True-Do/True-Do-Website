@@ -16,6 +16,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
+import { Search } from '@/components/ui/search';
 
 const mobileIconSize = 25;
 
@@ -24,7 +25,7 @@ const Layout = ({ children }) => {
   const path = usePathname();
 
   return (
-    <div className='md:flex md:flex-row screen-size bg-black'>
+    <div className='md:flex md:flex-row screen-size bg-background dark:bg-black'>
       <section id='SIDEBAR' className=''>
         <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white dark:bg-transparent dark:rounded-none p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
           <section className='flex flex-col space-y-2'>
@@ -54,9 +55,9 @@ const Layout = ({ children }) => {
       </section>
 
       <section id='MAIN PAGE' className='flex-1 max-h-svh flex flex-col'>
-        <div
-          id='TITLE'
-          className='flex flex-row backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full fixed dark:block'
+        <section
+          id='TITLE / SEARCH'
+          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full fixed flex flex-row'
         >
           <Link href={'/'}>
             <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl flex flex-row text-text-dark'>
@@ -64,16 +65,19 @@ const Layout = ({ children }) => {
               <span className='text-text-light pl-1'>Do</span>
             </h1>
           </Link>
-        </div>
+          <section id='BUTTONS' className='flex-1 flex flex-row'>
+            {/* <Search></Search> */}
+          </section>
+        </section>
 
-        <div
+        <section
           id='CHILDREN'
           className='flex-1 overflow-y-scroll pt-12 pb-24 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
         >
           {children}
-        </div>
+        </section>
 
-        <div
+        <section
           id='BOTTOM NAV BAR'
           className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
         >
@@ -109,7 +113,7 @@ const Layout = ({ children }) => {
               </Link>
             </PopoverContent>
           </Popover>
-        </div>
+        </section>
       </section>
     </div>
   );

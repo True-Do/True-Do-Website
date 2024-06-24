@@ -30,6 +30,7 @@ import {
   DotsVerticalIcon,
   PlusIcon,
   TrashIcon,
+  ReloadIcon,
 } from '@radix-ui/react-icons';
 
 const Todo = ({ user, initial }) => {
@@ -40,6 +41,8 @@ const Todo = ({ user, initial }) => {
   const [addTodo, setAddTodo] = useState('');
   const supabase = createClient();
   const [open, setOpen] = useState({});
+  const [columnsOnPhone, setColumnsOnPhone] = useState(2);
+  const [columnsOnPc, setColumnsOnPc] = useState(3);
 
   // ========
   // CATEGORY
@@ -101,8 +104,8 @@ const Todo = ({ user, initial }) => {
     data.map((category) => {
       _open[category.id] = false;
     });
-
     setOpen(_open);
+
     setCategories(data);
   }
 
@@ -110,7 +113,7 @@ const Todo = ({ user, initial }) => {
   //. TODO
   // =====
   const getTodo = async () => {
-    // TODO Add a forced refresh button somewhere
+    // TODO Forced refresh button that clears localstorage and revalidates() the page
     const cacheUpdateTime = 60;
 
     let cachedData = localStorage.getItem('todo-data') || null;
@@ -208,8 +211,8 @@ const Todo = ({ user, initial }) => {
         <path
           d='M3.13523 8.84197C3.3241 9.04343 3.64052 9.05363 3.84197 8.86477L7.5 5.43536L11.158 8.86477C11.3595 9.05363 11.6759 9.04343 11.8648 8.84197C12.0536 8.64051 12.0434 8.32409 11.842 8.13523L7.84197 4.38523C7.64964 4.20492 7.35036 4.20492 7.15803 4.38523L3.15803 8.13523C2.95657 8.32409 2.94637 8.64051 3.13523 8.84197Z'
           fill='currentColor'
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
         ></path>
       </svg>
     );
@@ -227,8 +230,8 @@ const Todo = ({ user, initial }) => {
         <path
           d='M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z'
           fill='currentColor'
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
         ></path>
       </svg>
     );
@@ -236,8 +239,47 @@ const Todo = ({ user, initial }) => {
 
   return (
     <div className='w-full flex flex-col h-full'>
-      <section className='flex-1 p-1 '>
-        <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 3 }}>
+      <section id='MenuBar' className='my-1 flex flex-row space-x-2 mx-2'>
+        <Button
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
+          onClick={() => {
+            let _open = { ...open };
+            Object.keys(open).map((id) => {
+              _open[id] = true;
+            });
+            setOpen(_open);
+          }}
+        >
+          Expand All
+        </Button>
+        <Button
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
+          onClick={() => {
+            let _open = { ...open };
+            Object.keys(open).map((id) => {
+              _open[id] = false;
+            });
+            setOpen(_open);
+          }}
+        >
+          Collapse All
+        </Button>
+        <Button
+          onClick={() => {
+            localStorage.removeItem('todo-data');
+            localStorage.removeItem('todo-fetch-time');
+            window.location.reload();
+          }}
+          className='px-3 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
+        >
+          <ReloadIcon></ReloadIcon>
+        </Button>
+      </section>
+
+      <section className='flex-1 p-1'>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 750: columnsOnPhone, 900: columnsOnPc }}
+        >
           <Masonry gutter=''>
             {!loading &&
               categories.map((category) => {
@@ -274,13 +316,13 @@ const Todo = ({ user, initial }) => {
 
                       <Dialog>
                         <DialogTrigger>
-                          <Button
+                          <div
                             size='sm'
                             variant='outline'
                             className='bg-light-off-white hover:bg-white dark:bg-dark-gray-500 hover:dark:bg-dark-gray-500 border-none'
                           >
                             <PlusIcon></PlusIcon>
-                          </Button>
+                          </div>
                         </DialogTrigger>
 
                         <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
