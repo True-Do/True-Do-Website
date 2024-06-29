@@ -23,7 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-const CalendarPage = ({ initial }) => {
+const CalendarPage = ({ user, initial }) => {
   const [date, setDate] = useState(new Date());
   const [addCalendar, setAddCalendar] = useState();
   const [loading, setLoading] = useState(true);

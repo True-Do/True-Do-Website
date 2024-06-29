@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import Todo from './todo';
 
+export const revalidate = 60;
+
 export default async function PrivatePage() {
   const supabase = createClient();
 
