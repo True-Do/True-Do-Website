@@ -28,7 +28,7 @@ import { useRouter } from 'next/navigation';
 
 // TODO Add timer for ratelimiting?
 
-const Note = ({ user }) => {
+const Note = ({ user, initial }) => {
   const router = useRouter();
 
   const search = useSearchParams();
@@ -136,22 +136,15 @@ const Note = ({ user }) => {
   // Get data, Set State, Set tiptap editor content,
   // Set title input data
   const getData = useCallback(async () => {
-    let { data, error } = await supabase
-      .from('note')
-      .select()
-      .eq('user_id', user.id)
-      .eq('id', search.get('id'))
-      .single();
-
-    setNote(data);
+    setNote(initial);
 
     if (editor) {
-      editor.commands.setContent(data.note);
+      editor.commands.setContent(initial.note);
       setEditorReady(true);
     }
 
     titleInputRef.current.value = data.title;
-  }, [supabase, user, search, editor]);
+  }, [initial, editor]);
 
   // Will wait till editor is ready
   // once editor is ready, then check id
