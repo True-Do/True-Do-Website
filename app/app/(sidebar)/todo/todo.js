@@ -4,7 +4,6 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { createClient } from '@/utils/supabase/client';
 import { useCallback, useEffect, useState } from 'react';
-
 import {
   Popover,
   PopoverContent,
@@ -251,9 +250,12 @@ const Todo = ({ user, initial, initialCategories }) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-1 px-3 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-500 shadow-md'
+                    className='m-1 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-500 shadow-md '
                   >
-                    <div id='Title' className='flex flex-row items-center p-1'>
+                    <div
+                      id='Title'
+                      className='flex flex-row items-center p-1 px-4'
+                    >
                       <h2
                         className='text-xl md:text-xl font-bold flex-1 break-all cursor-pointer'
                         onClick={() => {
@@ -353,10 +355,18 @@ const Todo = ({ user, initial, initialCategories }) => {
                       </Popover>
                     </div>
 
+                    <hr
+                      className={
+                        open[category.id] == true
+                          ? 'border-[1px] border-dark-gray-400 mt-2'
+                          : 'hidden'
+                      }
+                    />
+
                     <div
                       className={
                         open[category.id] == true
-                          ? 'mt-2 flex flex-col space-y-1'
+                          ? 'mt-2 flex flex-col space-y-1 divide-y-[1px] divide-dark-gray-400 px-4 transition-all'
                           : 'hidden'
                       }
                     >
@@ -366,7 +376,7 @@ const Todo = ({ user, initial, initialCategories }) => {
                             <div
                               key={todo.id}
                               id={todo.id}
-                              className='text-base flex flex-row hyphens-auto break-all py-[.35rem] border-[1px] border-dark-gray-400 px-3 rounded-xl'
+                              className='text-base flex flex-row hyphens-auto break-all py-[.35rem]  px-3'
                             >
                               <Checkbox
                                 onClick={() => {
