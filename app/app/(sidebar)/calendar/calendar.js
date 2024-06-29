@@ -23,7 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-const CalendarPage = ({ user }) => {
+const CalendarPage = ({ initial }) => {
   const [date, setDate] = useState(new Date());
   const [addCalendar, setAddCalendar] = useState();
   const [loading, setLoading] = useState(true);
@@ -31,15 +31,10 @@ const CalendarPage = ({ user }) => {
   const [daysWithItems, setDaysWithItems] = useState([]);
   const supabase = createClient();
 
-  const getCalendarItems = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('calendar')
-      .select()
-      .eq('user_id', user.id);
-
-    setCalendarItems(data);
+  const getCalendarItems = useCallback(() => {
+    setCalendarItems(initial);
     setLoading(false);
-  }, [supabase, user.id]);
+  }, [initial]);
 
   async function deleteCalendarItem(calendar_id) {
     const { delete_error } = await supabase

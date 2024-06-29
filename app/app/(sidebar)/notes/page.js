@@ -14,5 +14,16 @@ export default async function PrivatePage() {
     redirect('/login');
   }
 
-  return <Notes user={data.user} />;
+  const { data: notes, error: notesError } = await supabase
+    .from('note')
+    .select()
+    .eq('user_id', data.user.id);
+
+  if (notesError) {
+    // TODO Implement error page
+    console.error('Error fetching notes:', todosError);
+    return <div>Error loading notes</div>;
+  }
+
+  return <Notes user={data.user} initial={notes} />;
 }

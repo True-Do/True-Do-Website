@@ -35,7 +35,7 @@ import {
 
 const IconSize = '20px';
 
-const Todo = ({ user, initial }) => {
+const Todo = ({ user, initial, initialCategories }) => {
   const [todo, setTodo] = useState();
   const [categories, setCategories] = useState({});
   const [loading, setLoading] = useState(true);
@@ -50,18 +50,13 @@ const Todo = ({ user, initial }) => {
   // CATEGORY
   // ========
   async function getCategories() {
-    let { data, error } = await supabase
-      .from('todo_category')
-      .select()
-      .eq('user_id', user.id);
-
     let _open = {};
-    data.map((category) => {
+    initialCategories.map((category) => {
       _open[category.id] = false;
     });
 
     setOpen(_open);
-    setCategories(data);
+    setCategories(initialCategories);
   }
 
   async function deleteCategory(category_id) {
@@ -114,42 +109,10 @@ const Todo = ({ user, initial }) => {
   // =====
   //. TODO
   // =====
-  const getTodo = async () => {
-    // TODO Forced refresh button that clears localstorage and revalidates() the page
-    const cacheUpdateTime = 60;
-
-    let cachedData = localStorage.getItem('todo-data') || null;
-    let parsedCachedData = JSON.parse(cachedData);
-
-    if (cachedData && cachedData != {}) {
-      await getCategories(parsedCachedData);
-      setTodo(parsedCachedData);
-      setLoading(false);
-
-      console.log('old data');
-    }
-
-    let cachedTime = localStorage.getItem('todo-fetch-time') || null;
-    let parsedCachedTime = parseInt(cachedTime);
-
-    // Trigger when refresh timer is done
-
-    if (Math.floor((Date.now() - parsedCachedTime) / 1000) < cacheUpdateTime) {
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from('todo')
-      .select()
-      .eq('user_id', user.id);
-
-    localStorage.setItem('todo-data', JSON.stringify(data));
-    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
-
-    await getCategories(data);
-    setTodo(data);
+  const getTodo = () => {
+    getCategories();
+    setTodo(initial);
     setLoading(false);
-    console.log('fresh data');
   };
 
   async function deleteTodo(todo_id) {

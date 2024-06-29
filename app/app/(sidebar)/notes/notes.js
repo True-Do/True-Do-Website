@@ -15,14 +15,9 @@ const Notes = ({ user, initial }) => {
   const supabase = createClient();
 
   const getData = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('note')
-      .select()
-      .eq('user_id', user.id);
-
-    setNotes(data);
+    setNotes(initial);
     setLoading(false);
-  }, [supabase, user.id]);
+  }, [initial]);
 
   useEffect(() => {
     getData();

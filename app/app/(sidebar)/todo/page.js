@@ -4,9 +4,6 @@ import { createClient } from '@/utils/supabase/server';
 import Todo from './todo';
 
 export default async function PrivatePage() {
-  const startTime = Date.now();
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
-
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
@@ -15,8 +12,23 @@ export default async function PrivatePage() {
     redirect('/login');
   }
 
-  const endTime = Date.now();
-  const timeToFetch = (endTime - startTime) / 1000;
+  const { data: todos, error: todosError } = await supabase
+    .from('todo')
+    .select()
+    .eq('user_id', data.user.id);
 
-  return <Todo user={data.user} />;
+  const { data: categories, error: categoriesError } = await supabase
+    .from('todo_category')
+    .select()
+    .eq('user_id', data.user.id);
+
+  if (todosError || categoriesError) {
+    // TODO Implement error page
+    console.error('Error fetching notes:', todosError);
+    return <div>Error loading notes</div>;
+  }
+
+  return (
+    <Todo user={data.user} initial={todos} initialCategories={categories} />
+  );
 }
