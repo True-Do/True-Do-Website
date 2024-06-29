@@ -51,8 +51,7 @@ export function Search() {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading='Actions'>
             <CommandItem
-              onSelect={(value) => {
-                // console.log(value);
+              onSelect={() => {
                 window.location.replace('/app/note?id=new');
               }}
             >
@@ -69,23 +68,6 @@ export function Search() {
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading='Settings'>
-            <CommandItem>
-              <PersonIcon className='mr-2 h-4 w-4' />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <EnvelopeClosedIcon className='mr-2 h-4 w-4' />
-              <span>Mail</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <GearIcon className='mr-2 h-4 w-4' />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </>

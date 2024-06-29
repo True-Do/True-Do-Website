@@ -33,6 +33,8 @@ import {
   ReloadIcon,
 } from '@radix-ui/react-icons';
 
+const IconSize = '20px';
+
 const Todo = ({ user, initial }) => {
   const [todo, setTodo] = useState();
   const [categories, setCategories] = useState({});
@@ -41,8 +43,8 @@ const Todo = ({ user, initial }) => {
   const [addTodo, setAddTodo] = useState('');
   const supabase = createClient();
   const [open, setOpen] = useState({});
-  const [columnsOnPhone, setColumnsOnPhone] = useState(2);
-  const [columnsOnPc, setColumnsOnPc] = useState(3);
+  const [columnsOnPhone, setColumnsOnPhone] = useState(1);
+  const [columnsOnPc, setColumnsOnPc] = useState(2);
 
   // ========
   // CATEGORY
@@ -199,11 +201,11 @@ const Todo = ({ user, initial }) => {
     getTodo();
   }, []);
 
-  function OpenIcon() {
+  function CloseIcon() {
     return (
       <svg
-        width='15'
-        height='15'
+        width={IconSize}
+        height={IconSize}
         viewBox='0 0 15 15'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
@@ -218,11 +220,11 @@ const Todo = ({ user, initial }) => {
     );
   }
 
-  function CloseIcon() {
+  function OpenIcon() {
     return (
       <svg
-        width='15'
-        height='15'
+        width={IconSize}
+        height={IconSize}
         viewBox='0 0 15 15'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
@@ -239,7 +241,7 @@ const Todo = ({ user, initial }) => {
 
   return (
     <div className='w-full flex flex-col h-full'>
-      <section id='MenuBar' className='my-1 flex flex-row space-x-2 mx-2'>
+      <section id='Menu Bar' className='my-1 flex flex-row space-x-2 mx-2'>
         <Button
           className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
           onClick={() => {
@@ -276,7 +278,7 @@ const Todo = ({ user, initial }) => {
         </Button>
       </section>
 
-      <section className='flex-1 p-1'>
+      <section id='Main Page' className='flex-1 p-1'>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 750: columnsOnPhone, 900: columnsOnPc }}
         >
@@ -286,9 +288,9 @@ const Todo = ({ user, initial }) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-1 px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md'
+                    className='m-1 px-3 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-500 shadow-md'
                   >
-                    <div className='flex flex-row items-center'>
+                    <div id='Title' className='flex flex-row items-center p-1'>
                       <h2
                         className='text-xl md:text-xl font-bold flex-1 break-all cursor-pointer'
                         onClick={() => {
@@ -308,20 +310,23 @@ const Todo = ({ user, initial }) => {
                         }}
                       >
                         {open[category.id] == true ? (
-                          <OpenIcon></OpenIcon>
-                        ) : (
                           <CloseIcon></CloseIcon>
+                        ) : (
+                          <OpenIcon></OpenIcon>
                         )}
                       </button>
 
-                      <Dialog>
+                      <Dialog id='Add Button'>
                         <DialogTrigger>
                           <div
                             size='sm'
                             variant='outline'
-                            className='bg-light-off-white hover:bg-white dark:bg-dark-gray-500 hover:dark:bg-dark-gray-500 border-none'
+                            className='bg-transparent border-none m-1'
                           >
-                            <PlusIcon></PlusIcon>
+                            <PlusIcon
+                              height={IconSize}
+                              width={IconSize}
+                            ></PlusIcon>
                           </div>
                         </DialogTrigger>
 
@@ -362,10 +367,14 @@ const Todo = ({ user, initial }) => {
                         </DialogContent>
                       </Dialog>
 
-                      <Popover>
+                      <Popover id='Extra Settings'>
                         <PopoverTrigger>
-                          <DotsVerticalIcon></DotsVerticalIcon>
+                          <DotsVerticalIcon
+                            height={IconSize}
+                            width={IconSize}
+                          ></DotsVerticalIcon>
                         </PopoverTrigger>
+
                         <PopoverContent>
                           <Button
                             variant='outline'
@@ -382,7 +391,11 @@ const Todo = ({ user, initial }) => {
                     </div>
 
                     <div
-                      className={open[category.id] == true ? 'mt-2' : 'hidden'}
+                      className={
+                        open[category.id] == true
+                          ? 'mt-2 flex flex-col space-y-1'
+                          : 'hidden'
+                      }
                     >
                       {todo.map((todo) => {
                         if (todo.category == category.id) {
@@ -390,15 +403,15 @@ const Todo = ({ user, initial }) => {
                             <div
                               key={todo.id}
                               id={todo.id}
-                              className='text-base flex flex-row hyphens-auto break-all'
+                              className='text-base flex flex-row hyphens-auto break-all py-[.35rem] border-[1px] border-dark-gray-400 px-3 rounded-xl'
                             >
                               <Checkbox
                                 onClick={() => {
                                   deleteTodo(todo.id);
                                 }}
-                                className='m-1 ml-0'
+                                className='mr-2 mt-[.4rem] ml-0'
                               />
-                              {todo.label}
+                              <span className='text-lg'>{todo.label}</span>
                             </div>
                           );
                         }

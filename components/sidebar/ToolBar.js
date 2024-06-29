@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import Image from 'next/image';
 import Icons from '@/constants/Icons';
 
-const iconSize = 20;
+const iconSize = 22;
 
 const ToolTip = ({ editor }) => {
   const addImage = useCallback(() => {
@@ -21,7 +21,7 @@ const ToolTip = ({ editor }) => {
   }
 
   return (
-    <div className='flex flex-row flex-wrap space-x-3 mb-2 p-2 px-4 rounded-xl justify-center md:justify-start sticky top-5 bg-light-off-white dark:text-white dark:bg-dark-gray-500 z-50'>
+    <div className='fixed bottom-0 w-fit flex flex-row flex-wrap space-x-3 mb-2 p-2 px-4 rounded-xl justify-center md:justify-start md:sticky md:top-5 bg-light-off-white dark:text-white dark:bg-dark-gray-500 z-50'>
       <section className='space-x-3 flex flex-row'>
         <button
           onClick={() =>
@@ -47,10 +47,14 @@ const ToolTip = ({ editor }) => {
 
       <div className='border-r-[1px] border-black dark:border-white my-1'></div>
 
-      <section className='space-x-3 flex flex-row items-center'>
+      <section className='space-x-1 flex flex-row items-center'>
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={editor.isActive('bold') ? 'is-active' : ''}
+          className={
+            editor.isActive('bold')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -101,7 +105,11 @@ const ToolTip = ({ editor }) => {
 
         <button
           onClick={() => editor.chain().focus().toggleStrike().run()}
-          className={editor.isActive('strike') ? 'is-active' : ''}
+          className={
+            editor.isActive('strike')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -124,7 +132,11 @@ const ToolTip = ({ editor }) => {
 
         <button
           onClick={() => editor.chain().focus().toggleCode().run()}
-          className={editor.isActive('code') ? 'is-active' : ''}
+          className={
+            editor.isActive('code')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -146,12 +158,16 @@ const ToolTip = ({ editor }) => {
         </button>
       </section>
 
-      <div className='border-r-[1px] border-black my-1'></div>
+      <div className='border-r-[1px] border-black dark:border-white my-1'></div>
 
-      <section className='space-x-3 flex flex-row items-center'>
+      <section className='space-x-1 flex flex-row items-center'>
         <button
           onClick={() => editor.chain().focus().toggleTaskList().run()}
-          className={editor.isActive('taskList') ? 'is-active' : ''}
+          className={
+            editor.isActive('taskList')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -174,7 +190,11 @@ const ToolTip = ({ editor }) => {
 
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive('bulletList') ? 'is-active' : ''}
+          className={
+            editor.isActive('bulletList')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -197,7 +217,11 @@ const ToolTip = ({ editor }) => {
 
         <button
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
-          className={''}
+          className={
+            editor.isActive('bulletList')
+              ? 'dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+              : 'hover:dark:bg-dark-gray-400 p-1 rounded-md transition-all'
+          }
         >
           <div className='dark:hidden'>
             <Image
@@ -219,7 +243,7 @@ const ToolTip = ({ editor }) => {
         </button>
       </section>
 
-      <div className='border-r-[1px] border-black my-1'></div>
+      <div className='border-r-[1px] border-black dark:border-white my-1'></div>
 
       <section className='space-x-3 flex flex-row items-center'>
         <button
@@ -292,7 +316,7 @@ const ToolTip = ({ editor }) => {
         </button>
       </section>
 
-      <div className='border-r-[1px] border-black my-1'></div>
+      <div className='border-r-[1px] border-black dark:border-white my-1'></div>
 
       <button onClick={addImage}>
         <div className='dark:hidden'>
