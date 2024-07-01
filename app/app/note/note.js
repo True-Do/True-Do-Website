@@ -143,7 +143,7 @@ const Note = ({ user, initial }) => {
       setEditorReady(true);
     }
 
-    titleInputRef.current.value = data.title;
+    titleInputRef.current.value = initial.title;
   }, [initial, editor]);
 
   // Will wait till editor is ready
