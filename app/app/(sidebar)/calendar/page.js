@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import CalendarPage from './calendar';
 
 export default async function PrivatePage() {
+  // await new Promise((resolve) => setTimeout(resolve, 10000));
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();

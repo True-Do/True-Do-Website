@@ -78,7 +78,7 @@ const CalendarPage = ({ user, initial }) => {
   }, [getCalendarItems]);
 
   return (
-    <div className='h-[80vh] mt-1 w-full flex  items-center'>
+    <div className='h-[80vh] mt-1 w-full flex items-center'>
       <div className='h-full w-full flex flex-col md:flex-row items-center justify-center px-20'>
         {!loading && (
           <>
