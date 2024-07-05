@@ -26,8 +26,9 @@ const Layout = ({ children }) => {
 
   return (
     <div className='md:flex md:flex-row screen-size bg-background dark:bg-black'>
-      <section id='SIDEBAR' className=''>
-        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white dark:bg-transparent dark:rounded-none p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between'>
+      {/* Sidebar for large screens */}
+      <aside id='SIDEBAR' className=''>
+        <div className='sticky left-0 top-0 screen-size flex-col bg-light-off-white dark:bg-transparent dark:rounded-none p-2 py-5 space-y-2 z-50 rounded-tr-3xl rounded-br-3xl hidden md:flex shadow-md justify-between dark:border-r-dark-gray-400 dark:border-r-[1px] '>
           <section className='flex flex-col space-y-2'>
             <NavItem sidebar={true} item={'todo'}>
               <FaCheckSquare size={27} />
@@ -52,31 +53,34 @@ const Layout = ({ children }) => {
             </Popover>
           </section>
         </div>
-      </section>
+      </aside>
 
       <section id='MAIN PAGE' className='flex-1 max-h-svh flex flex-col'>
+        {/* Top Bar */}
         <section
           id='TITLE / SEARCH'
-          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full fixed flex flex-row'
+          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full sticky flex flex-row items-center dark:border-b-[1px] dark:border-b-dark-gray-400/75 pb-2'
         >
           <Link href={'/'}>
-            <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-3xl flex flex-row text-text-dark'>
+            <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-2xl flex flex-row text-text-dark'>
               <span className='dark:text-text-light'>True</span>{' '}
               <span className='text-text-light pl-1'>Do</span>
             </h1>
           </Link>
           <section id='BUTTONS' className='flex-1 flex flex-row'>
-            {/* <Search></Search> */}
+            <Search></Search>
           </section>
         </section>
 
+        {/* Children */}
         <section
           id='CHILDREN'
-          className='flex-1 overflow-y-scroll pt-12 pb-24 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
+          className='flex-1 overflow-y-scroll pt-3 px-3 pb-24 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
         >
           {children}
         </section>
 
+        {/* Bottom navbar for smaller screens */}
         <section
           id='BOTTOM NAV BAR'
           className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 py-4 z-10 rounded-xl my-4 md:hidden shadow-md'

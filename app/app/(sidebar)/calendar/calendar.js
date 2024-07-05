@@ -82,7 +82,7 @@ const CalendarPage = ({ user, initial }) => {
       <div className='h-full w-full flex flex-col md:flex-row items-center justify-center px-20'>
         {!loading && (
           <>
-            <section className='w-full  flex items-center justify-center'>
+            <section className='w-full flex items-center justify-center'>
               <Calendar
                 formatters={{
                   formatDay: (date) => {
@@ -138,7 +138,7 @@ const CalendarPage = ({ user, initial }) => {
                 id='ADD BUTTON'
                 className='p-2 rounded-full md:p-0 bg-background dark:bg-black'
               >
-                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all md:border-[1px] dark:border-dark-gray-400'>
                   <PlusIcon></PlusIcon>
                 </div>
               </div>

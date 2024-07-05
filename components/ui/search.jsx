@@ -7,6 +7,7 @@ import {
   FaceIcon,
   GearIcon,
   PersonIcon,
+  MagnifyingGlassIcon,
   RocketIcon,
   FilePlusIcon,
 } from '@radix-ui/react-icons';
@@ -21,6 +22,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command';
+import { Button } from './button';
 
 export function Search() {
   const [open, setOpen] = React.useState(false);
@@ -39,12 +41,15 @@ export function Search() {
 
   return (
     <>
-      <p className='text-sm text-muted-foreground'>
-        Press{' '}
-        <kbd className='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100'>
-          <span className='text-xs'>Ctrl / ⌘</span>J
-        </kbd>
-      </p>
+      <Button
+        className='px-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 flex flex-row items-center space-x-1 border-[1px] dark:border-dark-gray-400'
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        <MagnifyingGlassIcon></MagnifyingGlassIcon>
+        <span>Commands</span>
+      </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
@@ -58,13 +63,29 @@ export function Search() {
               <FilePlusIcon className='mr-2 h-4 w-4' />
               <span>Add A New Note</span>
             </CommandItem>
-            <CommandItem>
-              <FaceIcon className='mr-2 h-4 w-4' />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => {
+                window.location.replace('/app/todo');
+              }}
+            >
               <RocketIcon className='mr-2 h-4 w-4' />
-              <span>Launch</span>
+              <span>Todo</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                window.location.replace('/app/notes');
+              }}
+            >
+              <FaceIcon className='mr-2 h-4 w-4' />
+              <span>Notes</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                window.location.replace('/app/calendar');
+              }}
+            >
+              <RocketIcon className='mr-2 h-4 w-4' />
+              <span>Calendar</span>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />

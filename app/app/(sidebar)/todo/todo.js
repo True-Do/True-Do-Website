@@ -70,9 +70,6 @@ const Todo = ({ user, initial, initialCategories }) => {
       .select()
       .eq('user_id', user.id);
 
-    localStorage.setItem('todo-data', JSON.stringify(data));
-    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
-
     setCategories(data);
   }
 
@@ -92,9 +89,6 @@ const Todo = ({ user, initial, initialCategories }) => {
       .from('todo_category')
       .select()
       .eq('user_id', user.id);
-
-    localStorage.setItem('todo-data', JSON.stringify(data));
-    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
 
     let _open = {};
     data.map((category) => {
@@ -126,9 +120,6 @@ const Todo = ({ user, initial, initialCategories }) => {
       .select()
       .eq('user_id', user.id);
 
-    localStorage.setItem('todo-data', JSON.stringify(data));
-    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
-
     setTodo(data);
   }
 
@@ -149,9 +140,6 @@ const Todo = ({ user, initial, initialCategories }) => {
       .from('todo')
       .select()
       .eq('user_id', user.id);
-
-    localStorage.setItem('todo-data', JSON.stringify(data));
-    localStorage.setItem('todo-fetch-time', JSON.stringify(Date.now()));
 
     let _open = { ...open };
     _open[category_id] = true;
@@ -203,9 +191,10 @@ const Todo = ({ user, initial, initialCategories }) => {
 
   return (
     <div className='w-full flex flex-col h-full'>
+      {/* Menu Bar */}
       <section id='Menu Bar' className='my-1 flex flex-row space-x-2 mx-2'>
         <Button
-          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
           onClick={() => {
             let _open = { ...open };
             Object.keys(open).map((id) => {
@@ -217,7 +206,7 @@ const Todo = ({ user, initial, initialCategories }) => {
           Expand All
         </Button>
         <Button
-          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
           onClick={() => {
             let _open = { ...open };
             Object.keys(open).map((id) => {
@@ -227,16 +216,6 @@ const Todo = ({ user, initial, initialCategories }) => {
           }}
         >
           Collapse All
-        </Button>
-        <Button
-          onClick={() => {
-            localStorage.removeItem('todo-data');
-            localStorage.removeItem('todo-fetch-time');
-            window.location.reload();
-          }}
-          className='px-3 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400'
-        >
-          <ReloadIcon></ReloadIcon>
         </Button>
       </section>
 
@@ -250,11 +229,11 @@ const Todo = ({ user, initial, initialCategories }) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-1 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-500 shadow-md '
+                    className='m-1 rounded-lg bg-light-off-white dark:bg-dark-gray-500 shadow-md border-[1px] dark:border-dark-gray-400 '
                   >
                     <div
                       id='Title'
-                      className='flex flex-row items-center p-1 px-4'
+                      className='flex flex-row items-center py-3 px-4 '
                     >
                       <h2
                         className='text-xl md:text-xl font-bold flex-1 break-all cursor-pointer'
@@ -358,7 +337,7 @@ const Todo = ({ user, initial, initialCategories }) => {
                     <hr
                       className={
                         open[category.id] == true
-                          ? 'border-[1px] border-dark-gray-400 mt-2'
+                          ? 'border-dark-gray-400'
                           : 'hidden'
                       }
                     />
@@ -366,7 +345,7 @@ const Todo = ({ user, initial, initialCategories }) => {
                     <div
                       className={
                         open[category.id] == true
-                          ? 'mt-2 flex flex-col space-y-1 divide-y-[1px] divide-dark-gray-400 px-4 transition-all'
+                          ? 'flex flex-col divide-y-[1px] divide-dark-gray-400 transition-all'
                           : 'hidden'
                       }
                     >
@@ -408,7 +387,7 @@ const Todo = ({ user, initial, initialCategories }) => {
                 id='ADD BUTTON'
                 className='p-2 rounded-full md:p-0 bg-background dark:bg-black'
               >
-                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all'>
+                <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all md:dark:border-[1px] dark:border-dark-gray-400'>
                   <PlusIcon></PlusIcon>
                 </div>
               </div>

@@ -38,7 +38,7 @@ const Notes = ({ user, initial }) => {
                   >
                     <div
                       key={note.id}
-                      className='shadow-md flex flex-col rounded-xl bg-light-off-white dark:bg-dark-accent p-4 space-y-2 hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'
+                      className='shadow-md flex flex-col rounded-lg bg-light-off-white dark:bg-dark-accent p-4 space-y-2 hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all border-[1px] dark:border-dark-gray-400'
                     >
                       <h2 className='text-xl font-bold break-words'>
                         {note.title}
@@ -63,7 +63,7 @@ const Notes = ({ user, initial }) => {
       >
         <Link href={'/app/note?id=new'} className=''>
           <div className='p-2 rounded-full md:p-0 bg-background dark:bg-black'>
-            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all'>
+            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all md:border-[1px] dark:border-dark-gray-400'>
               <PlusIcon></PlusIcon>
             </div>
           </div>
