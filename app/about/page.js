@@ -41,7 +41,7 @@ const About = () => {
       <hr className='w-svw border-dark-gray-200 dark:border-white dark:opacity-10' />
 
       <div className='max-w-4xl mx-auto'>
-        <section className='flex mt-12'>
+        <section className='flex flex-col md:flex-row mt-12'>
           <div className='basis-5/12 flex items-center justify-center'>
             <Image
               alt='about us'
@@ -62,15 +62,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className='flex mt-12 pb-12 ml-4'>
-          <div className='p-8 pr-32 basis-7/12 flex flex-col items-start justify-center'>
-            <h1 className='text-xl font-semibold'>Our Mission</h1>
-            <p className='text-sm'>
-              True Do was built to keep all your productivity tools in a single
-              place making it easier to switch between different tasks and
-              quickly jot down information
-            </p>
-          </div>
+        <section className='flex flex-col md:flex-row-reverse mt-12 pb-12 ml-4'>
           <div className='basis-5/12 flex items-center justify-center'>
             <Image
               alt='about us'
@@ -79,6 +71,14 @@ const About = () => {
               width={'380'}
               height={'280'}
             ></Image>
+          </div>
+          <div className='p-8 pr-32 basis-7/12 flex flex-col items-start justify-center'>
+            <h1 className='text-xl font-semibold'>Our Mission</h1>
+            <p className='text-sm'>
+              True Do was built to keep all your productivity tools in a single
+              place making it easier to switch between different tasks and
+              quickly jot down information
+            </p>
           </div>
         </section>
       </div>
