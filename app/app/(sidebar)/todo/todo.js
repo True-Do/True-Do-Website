@@ -84,6 +84,68 @@ const Todo = ({ user, initial, initialCategories }) => {
     setOpen(_open);
 
     setCategories(data);
+    setAddCategory('');
+  }
+
+  async function handleAddAICategory() {
+    if (addCategory == '' || addCategory == undefined || addCategory == null) {
+      return;
+    }
+
+    const aiOutput = await fetch('/api/ai', {
+      method: 'POST',
+      body: JSON.stringify({ prompt: addCategory.toString() }),
+    });
+    const body = await aiOutput.json();
+    const todosList = body.data;
+    const title = todosList[todosList.length - 1];
+    todosList.pop(todosList.length - 1);
+
+    console.log(title);
+
+    const { data: categoryData, error: categoryError } = await supabase
+      .from('todo_category')
+      .insert({
+        category: title,
+        user_id: user?.id,
+      })
+      .select();
+
+    console.log(categoryData);
+
+    const finalTodosList = [];
+
+    todosList.map((todo) => {
+      finalTodosList.push({
+        label: todo,
+        user_id: user?.id,
+        category: categoryData[0]['id'],
+      });
+    });
+
+    console.log(finalTodosList);
+
+    const { insert_error } = await supabase.from('todo').insert(finalTodosList);
+
+    let { data: newCategoryData, error: newCategoryError } = await supabase
+      .from('todo_category')
+      .select()
+      .eq('user_id', user.id);
+
+    let { data: newtodoData, error: newtodoError } = await supabase
+      .from('todo')
+      .select()
+      .eq('user_id', user.id);
+
+    let _open = {};
+    newCategoryData.map((category) => {
+      _open[category.id] = false;
+    });
+    setOpen(_open);
+
+    setTodo(newtodoData);
+    setCategories(newCategoryData);
+    setAddCategory('');
   }
 
   // =====
@@ -255,6 +317,7 @@ const Todo = ({ user, initial, initialCategories }) => {
 
                       <ExtraSettingsPopover
                         deleteCategory={deleteCategory}
+                        category={category}
                       ></ExtraSettingsPopover>
                     </div>
 
@@ -304,6 +367,7 @@ const Todo = ({ user, initial, initialCategories }) => {
         <BottomAddButton
           setAddCategory={setAddCategory}
           handleAddCategory={handleAddCategory}
+          handleAddAICategory={handleAddAICategory}
         ></BottomAddButton>
       )}
     </div>

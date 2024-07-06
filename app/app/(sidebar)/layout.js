@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FaCalendar, FaGear, FaNoteSticky } from 'react-icons/fa6';
 import { FaCheckSquare, FaRegCalendar } from 'react-icons/fa';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
         {/* Top Bar */}
         <section
           id='TITLE / SEARCH'
-          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full sticky flex flex-row items-center dark:border-b-[1px] dark:border-b-dark-gray-400/75 pb-2'
+          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full sticky flex flex-row items-center dark:border-b-[1px] dark:border-b-dark-gray-400/75 py-2'
         >
           <Link href={'/'}>
             <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-2xl flex flex-row text-text-dark'>
@@ -75,7 +75,7 @@ const Layout = ({ children }) => {
         {/* Children */}
         <section
           id='CHILDREN'
-          className='flex-1 overflow-y-scroll pt-3 px-3 pb-24 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
+          className='flex-1 overflow-y-scroll pt-3 px-3 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
         >
           {children}
         </section>

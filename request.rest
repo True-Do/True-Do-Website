@@ -1,0 +1,5 @@
+POST http://localhost:3000/api/ai
+
+{
+  "prompt": "I want to make a webapp using nextjs that allows you to take articles from one blogging site like medium.com to another blogging site like dev.to"
+}

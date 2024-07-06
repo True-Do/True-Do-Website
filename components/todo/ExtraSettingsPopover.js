@@ -19,7 +19,7 @@ import { Button } from '../ui/button';
 
 const IconSize = '20px';
 
-const ExtraSettingsPopover = ({ deleteCategory }) => {
+const ExtraSettingsPopover = ({ deleteCategory, category }) => {
   return (
     <Popover id='Extra Settings'>
       <PopoverTrigger>
