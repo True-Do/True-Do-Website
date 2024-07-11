@@ -268,7 +268,7 @@ const Todo = ({ user, initial, initialCategories }) => {
         </Button>
       </section>
 
-      <section id='Main Page' className='flex-1 p-1'>
+      <section id='Main Page' className='flex-1 p-1 pb-32 md:pb-16'>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 750: columnsOnPhone, 900: columnsOnPc }}
         >

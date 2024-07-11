@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "app.mulitet.true_do",
-        "sha256_cert_fingerprints": ["B8:88:9D:0A:34:AB:5B:2A:A8:43:20:7C:64:81:A4:59:E4:AF:E9:46:B1:14:62:41:BC:E2:8F:1E:1E:38:7B:85"]
-      }
-    }]

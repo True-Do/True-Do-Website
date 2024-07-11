@@ -27,7 +27,10 @@ const BottomAddButton = ({
   handleAddAICategory,
 }) => {
   return (
-    <div id='ADD BUTTON' className='sticky bottom-10 md:bottom-5 mx-auto z-20'>
+    <div
+      id='ADD BUTTON'
+      className='fixed left-1/2 translate-x-[-50%] md:sticky bottom-10 md:bottom-5 mx-auto z-20'
+    >
       <Popover>
         <PopoverTrigger>
           <div

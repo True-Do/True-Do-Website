@@ -25,7 +25,7 @@ const Notes = ({ user, initial }) => {
 
   return (
     <div className='py-4 px-4'>
-      <div className='h-full'>
+      <div className='h-full pb-32 md:pb-24'>
         {!loading && (
           <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 5 }}>
             <Masonry gutter='.75rem'>
