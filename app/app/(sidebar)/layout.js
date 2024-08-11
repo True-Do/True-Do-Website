@@ -69,7 +69,7 @@ const Layout = ({ children }) => {
         {/* Mobile Navbar */}
         <section
           id='BOTTOM NAV BAR'
-          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 dark:border-dark-gray-400 dark:border-[1px] py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
+          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-800 dark:border-dark-gray-400 dark:border-[1px] py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
         >
           <NavItem item={'todo'}>
             <FaCheckSquare size={mobileIconSize} />
