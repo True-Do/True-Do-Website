@@ -244,7 +244,7 @@ const Todo = ({ user, initial, initialCategories }) => {
       {/* Menu Bar */}
       <section id='Menu Bar' className='my-1 flex flex-row space-x-2 mx-2'>
         <Button
-          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-700 shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
           onClick={() => {
             let _open = { ...open };
             Object.keys(open).map((id) => {
@@ -256,7 +256,7 @@ const Todo = ({ user, initial, initialCategories }) => {
           Expand All
         </Button>
         <Button
-          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
+          className='px-4 py-3 rounded-xl bg-light-off-white dark:bg-dark-gray-700 shadow-md dark:text-white dark:hover:bg-dark-gray-400 border-[1px] dark:border-dark-gray-400'
           onClick={() => {
             let _open = { ...open };
             Object.keys(open).map((id) => {

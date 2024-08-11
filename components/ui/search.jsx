@@ -42,7 +42,7 @@ export function Search() {
   return (
     <>
       <Button
-        className='px-3 rounded-xl bg-light-off-white dark:bg-dark-accent shadow-md dark:text-white dark:hover:bg-dark-gray-400 flex flex-row items-center space-x-1 border-[1px] dark:border-dark-gray-400'
+        className='px-3 rounded-xl bg-light-off-white dark:bg-dark-gray-700 shadow-md dark:text-white dark:hover:bg-dark-gray-400 flex flex-row items-center space-x-1 border-[1px] dark:border-dark-gray-400'
         onClick={() => {
           setOpen(true);
         }}
