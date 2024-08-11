@@ -1,5 +1,4 @@
 'use client';
-
 import { createClient } from '@/utils/supabase/client';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -8,6 +7,8 @@ import clip from 'text-clipper';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { PlusIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
+import { Search } from '@/components/ui/search';
 
 const Notes = ({ user, initial }) => {
   const [notes, setNotes] = useState();
@@ -24,11 +25,16 @@ const Notes = ({ user, initial }) => {
   }, [getData]);
 
   return (
-    <div className='py-4 px-4'>
+    <div className='py-1'>
+      {/* Menu Bar */}
+      <section id='Menu Bar' className='my-1 flex flex-row space-x-2 mb-3'>
+        <Search></Search>
+      </section>
+
       <div className='h-full pb-32 md:pb-24'>
         {!loading && (
           <ResponsiveMasonry columnsCountBreakPoints={{ 750: 2, 900: 5 }}>
-            <Masonry gutter='.75rem'>
+            <Masonry gutter='.6rem'>
               {notes.map((note) => {
                 return (
                   <Link
@@ -38,7 +44,7 @@ const Notes = ({ user, initial }) => {
                   >
                     <div
                       key={note.id}
-                      className='shadow-md flex flex-col rounded-lg bg-light-off-white dark:bg-dark-accent p-4 space-y-2 hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all border-[1px] dark:border-dark-gray-400'
+                      className='shadow-md flex flex-col rounded-lg bg-light-off-white dark:bg-dark-gray-800 p-4 space-y-2 hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all border-[1px] dark:border-dark-gray-400'
                     >
                       <h2 className='text-xl font-bold break-words'>
                         {note.title}

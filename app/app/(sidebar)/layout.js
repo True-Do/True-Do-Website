@@ -57,33 +57,19 @@ const Layout = ({ children }) => {
 
       <section id='MAIN PAGE' className='flex-1 max-h-svh flex flex-col'>
         {/* Top Bar */}
-        <section
-          id='TITLE / SEARCH'
-          className='backdrop-blur-xl dark:backdrop-blur-none dark:bg-black w-full sticky flex flex-row items-center dark:border-b-[1px] dark:border-b-dark-gray-400/75 py-2'
-        >
-          <Link href={'/'}>
-            <h1 className='mr-2 px-3 py-2 rounded-xl md:ml-0 font-bold text-2xl flex flex-row text-text-dark'>
-              <span className='dark:text-text-light'>True</span>{' '}
-              <span className='text-text-light pl-1'>Do</span>
-            </h1>
-          </Link>
-          <section id='BUTTONS' className='flex-1 flex flex-row'>
-            <Search></Search>
-          </section>
-        </section>
 
         {/* Children */}
         <section
           id='CHILDREN'
-          className='flex-1 overflow-y-scroll pt-3 px-3 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
+          className='flex-1 overflow-y-scroll pt-1 md:pt-2 px-2 md:px-4 scrollbar scrollbar-track-transparent scrollbar-thumb-dark-gray-600 active:scrollbar-thumb-dark-gray-300 hover:scrollbar-thumb-dark-gray-300'
         >
           {children}
         </section>
 
-        {/* Bottom navbar for smaller screens */}
+        {/* Mobile Navbar */}
         <section
           id='BOTTOM NAV BAR'
-          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
+          className='fixed bottom-0 left-1/2 translate-x-[-50%] w-5/6 m-auto flex flex-row justify-evenly bg-light-off-white dark:bg-dark-gray-600 dark:border-dark-gray-400 dark:border-[1px] py-4 z-10 rounded-xl my-4 md:hidden shadow-md'
         >
           <NavItem item={'todo'}>
             <FaCheckSquare size={mobileIconSize} />

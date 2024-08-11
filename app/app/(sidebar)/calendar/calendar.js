@@ -101,6 +101,7 @@ const CalendarPage = ({ user, initial }) => {
             <section className='w-full p-8'>
               <ul className='list-disc'>
                 {calendarItems.map((item) => {
+                  if (!date) return;
                   // TODO Potential timezone problem?
                   let itemDateWithoutTime = new Date(item.date);
                   if (

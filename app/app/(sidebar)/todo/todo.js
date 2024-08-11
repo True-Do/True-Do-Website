@@ -18,6 +18,7 @@ import {
 import AddTodoDialog from '@/components/todo/AddTodoDialog';
 import ExtraSettingsPopover from '@/components/todo/ExtraSettingsPopover';
 import BottomAddButton from '@/components/todo/BottomAddButton';
+import { Search } from '@/components/ui/search';
 
 const IconSize = '20px';
 
@@ -266,19 +267,20 @@ const Todo = ({ user, initial, initialCategories }) => {
         >
           Collapse All
         </Button>
+        <Search></Search>
       </section>
 
       <section id='Main Page' className='flex-1 p-1 pb-32 md:pb-16'>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 750: columnsOnPhone, 900: columnsOnPc }}
         >
-          <Masonry gutter=''>
+          <Masonry gutter='.1rem'>
             {!loading &&
               categories.map((category) => {
                 return (
                   <div
                     key={category.id}
-                    className='m-1 rounded-lg bg-light-off-white dark:bg-dark-gray-500 shadow-md border-[1px] dark:border-dark-gray-400 '
+                    className='m-1 rounded-lg bg-light-off-white dark:bg-dark-gray-800 shadow-md border-[1px] dark:border-dark-gray-400 '
                   >
                     <div
                       id='Title'
