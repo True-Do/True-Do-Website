@@ -7,13 +7,13 @@ import clip from 'text-clipper';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { Button } from '@/components/ui/button';
 import { Search } from '@/components/ui/search';
 
 const Notes = ({ user, initial }) => {
   const [notes, setNotes] = useState();
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
+  // TODO Add deletion from this page
+  // const supabase = createClient();
 
   const getData = useCallback(async () => {
     setNotes(initial);

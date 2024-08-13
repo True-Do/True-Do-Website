@@ -2,19 +2,10 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import { createClient } from '@/utils/supabase/client';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { revalidatePath } from 'next/cache';
-import {
-  Cross1Icon,
-  DotsVerticalIcon,
-  PlusIcon,
-  TrashIcon,
-  ReloadIcon,
-} from '@radix-ui/react-icons';
 import AddTodoDialog from '@/components/todo/AddTodoDialog';
 import ExtraSettingsPopover from '@/components/todo/ExtraSettingsPopover';
 import BottomAddButton from '@/components/todo/BottomAddButton';

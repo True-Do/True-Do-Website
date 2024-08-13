@@ -14,12 +14,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import {
-  Cross1Icon,
-  DotsVerticalIcon,
-  PlusIcon,
-  TrashIcon,
-} from '@radix-ui/react-icons';
+import { PlusIcon, TrashIcon } from '@radix-ui/react-icons';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 

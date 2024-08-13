@@ -1,11 +1,9 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
 import { FaCalendar, FaGear, FaNoteSticky } from 'react-icons/fa6';
-import { FaCheckSquare, FaRegCalendar } from 'react-icons/fa';
+import { FaCheckSquare } from 'react-icons/fa';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavItem from '@/components/sidebar/NavItem';
@@ -15,15 +13,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
-import { Search } from '@/components/ui/search';
 
 const mobileIconSize = 25;
 
 const Layout = ({ children }) => {
-  const [menu, setMenu] = useState(false);
-  const path = usePathname();
-
   return (
     <div className='md:flex md:flex-row screen-size bg-background dark:bg-black'>
       {/* Sidebar for large screens */}

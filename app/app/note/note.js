@@ -1,13 +1,7 @@
 'use client';
 
-import { redirect, useSearchParams } from 'next/navigation';
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
