@@ -65,11 +65,11 @@ const Notes = ({ user, initial }) => {
 
       <div
         id='ADD BUTTON'
-        className='fixed bottom-12 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
+        className='fixed bottom-12 md:bottom-5 left-1/2 translate-x-[-50%] mx-auto z-20'
       >
         <Link href={'/app/note?id=new'} className=''>
-          <div className='p-2 rounded-full md:p-0 bg-background dark:bg-black'>
-            <div className='p-4 rounded-full md:rounded-xl bg-light-off-white dark:bg-dark-gray-600 shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all md:border-[1px] dark:border-dark-gray-400'>
+          <div className='p-2 rounded-2xl md:p-0 bg-background dark:bg-black border-[1px] dark:border-dark-gray-400 md:border-none'>
+            <div className='p-4 rounded-xl md:rounded-xl bg-light-off-white dark:bg-dark-gray-700 shadow-md hover:bg-white dark:hover:bg-dark-accent-hover hover:shadow-sm transition-all md:border-[1px] dark:border-dark-gray-400'>
               <PlusIcon></PlusIcon>
             </div>
           </div>
