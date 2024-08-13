@@ -52,6 +52,8 @@ const Todo = ({ user, initial, initialCategories }) => {
     setCategories(data);
   }
 
+  async function handleChangeCategory(category_id, new_category) {}
+
   async function handleAddCategory() {
     if (addCategory == '' || addCategory == undefined || addCategory == null) {
       return;

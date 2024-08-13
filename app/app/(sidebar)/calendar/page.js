@@ -9,6 +9,10 @@ export default async function PrivatePage() {
 
   const { data, error } = await supabase.auth.getUser();
 
+  if (error || !data?.user) {
+    redirect('/login');
+  }
+
   const { data: calendar, error: calendarError } = await supabase
     .from('calendar')
     .select()
@@ -18,10 +22,6 @@ export default async function PrivatePage() {
     // TODO Implement error page
     console.error('Error fetching notes:', todosError);
     return <div>Error loading notes</div>;
-  }
-
-  if (error || !data?.user) {
-    redirect('/login');
   }
 
   return <CalendarPage user={data.user} initial={calendar} />;

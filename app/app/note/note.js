@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { ResetIcon, TrashIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/navigation';
+import revalidate from './actions';
 
 // TODO Add timer for ratelimiting?
 
@@ -161,7 +162,12 @@ const Note = ({ user, initial }) => {
     <div className='w-full screen-size px-6 pt-6 pb-12  bg-light-off-white text-text-dark leading-3 md:px-8 md:py-6 dark:bg-dark-gray-800 dark:text-white'>
       <section id='BUTTONS' className='flex justify-between'>
         <div>
-          <Link href={'/app/notes'}>
+          <Link
+            onClick={() => {
+              revalidate();
+            }}
+            href={'/app/notes'}
+          >
             <ResetIcon height={20} width={20} />
           </Link>
         </div>
