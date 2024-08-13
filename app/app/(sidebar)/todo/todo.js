@@ -93,8 +93,6 @@ const Todo = ({ user, initial, initialCategories }) => {
     const title = todosList[todosList.length - 1];
     todosList.pop(todosList.length - 1);
 
-    console.log(title);
-
     const { data: categoryData, error: categoryError } = await supabase
       .from('todo_category')
       .insert({
@@ -102,8 +100,6 @@ const Todo = ({ user, initial, initialCategories }) => {
         user_id: user?.id,
       })
       .select();
-
-    console.log(categoryData);
 
     const finalTodosList = [];
 
@@ -114,8 +110,6 @@ const Todo = ({ user, initial, initialCategories }) => {
         category: categoryData[0]['id'],
       });
     });
-
-    console.log(finalTodosList);
 
     const { insert_error } = await supabase.from('todo').insert(finalTodosList);
 
@@ -278,7 +272,7 @@ const Todo = ({ user, initial, initialCategories }) => {
                       className='flex flex-row items-center py-3 px-4 '
                     >
                       <h2
-                        className='text-xl md:text-xl font-bold flex-1 break-all cursor-pointer'
+                        className='text-lg md:text-xl font-bold flex-1 break-all cursor-pointer'
                         onClick={() => {
                           let _open = { ...open };
                           _open[category.id] = !_open[category.id];
@@ -335,15 +329,17 @@ const Todo = ({ user, initial, initialCategories }) => {
                             <div
                               key={todo.id}
                               id={todo.id}
-                              className='text-base flex flex-row hyphens-auto break-all py-[.35rem]  px-3'
+                              className='text-base flex flex-row hyphens-auto break-all py-[.35rem] px-3'
                             >
                               <Checkbox
                                 onClick={() => {
                                   deleteTodo(todo.id);
                                 }}
-                                className='mr-2 mt-[.4rem] ml-0'
+                                className='md:mr-2 mr-1 mt-[.17rem] md:mt-[.29rem] ml-0'
                               />
-                              <span className='text-lg'>{todo.label}</span>
+                              <span className='text-sm md:text-base'>
+                                {todo.label}
+                              </span>
                             </div>
                           );
                         }
