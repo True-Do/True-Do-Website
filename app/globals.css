@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply bg-background;
-}
-
 .tiptap {
   outline: none;
   border: none;
@@ -90,4 +86,144 @@ ul[data-type='taskList'] > li {
 
 .notes-preview {
   @apply break-all;
+}
+
+.react-datepicker__aria-live {
+  display: none;
+}
+
+.rbc-time-view {
+  @apply max-h-[70vh] md:max-h-full !important;
+}
+
+.rbc-show-more {
+  @apply bg-dark-gray-400 text-white py-[.15rem] px-2 rounded-md !important;
+}
+
+.rbc-event {
+  @apply bg-dark-gray-400 border border-black outline-transparent !important;
+}
+
+.rbc-time-view {
+  @apply bg-dark-gray-700 rounded-md border-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-day-slot .rbc-events-container {
+  @apply mr-0 !important;
+}
+
+.rbc-time-header.rbc-overflowing {
+  @apply border-r-[1px] border-dark-gray-400 mr-[.6rem] !important;
+}
+
+.rbc-time-gutter > .rbc-timeslot-group {
+  @apply border-b-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-time-header-content {
+  @apply border-b-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-time-content {
+  @apply border-t-[1px] border-t-dark-gray-400 !important;
+  @apply scrollbar-thin;
+}
+
+.rbc-time-content > * + * > * {
+  @apply border-l-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-day-slot .rbc-time-slot {
+  @apply border-t-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-today > .rbc-timeslot-group > .rbc-time-slot {
+  @apply border-t-[1px] border-dark-gray-300 !important;
+}
+
+.rbc-month-view {
+  @apply bg-dark-gray-700 rounded-2xl border-[1px] border-dark-gray-400 !important;
+}
+
+.rbc-header {
+  @apply p-2 border-b-0 !important;
+}
+
+.rbc-header + .rbc-header {
+  @apply border-l-dark-gray-400 !important;
+}
+
+.rbc-day-bg + .rbc-day-bg {
+  @apply border-l-dark-gray-400 !important;
+}
+
+.rbc-month-row + .rbc-month-row {
+  @apply border-t-dark-gray-400 !important;
+}
+
+.rbc-off-range-bg {
+  @apply bg-dark-gray-500 !important;
+}
+
+.rbc-today {
+  @apply bg-dark-gray-500 !important;
+}
+
+.rbc-toolbar {
+  @apply flex flex-row !important;
+}
+
+.rbc-toolbar button {
+  @apply text-white !important;
+}
+
+.rbc-toolbar button:hover {
+  @apply text-black !important;
+}
+
+.rbc-toolbar .rbc-active {
+  @apply text-black !important;
+}
+
+.rbc-header:not(:nth-child(tr)) {
+  @apply border-b-dark-gray-400 flex items-center justify-center !important;
+}
+
+.rbc-allday-cell {
+  display: none;
+}
+
+.rbc-event-label {
+  @apply hidden !important;
+}
+
+.react-datepicker {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  background-color: #a66;
+  color: #000;
+  border: 0px;
+  border-radius: 0;
+  display: inline-block;
+  position: relative;
+}
+
+.react-datepicker__header {
+  text-align: center;
+  background-color: #3e82cf;
+  border-bottom: 0px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-top: 8px;
+  position: relative;
+}
+
+.react-datepicker__today-button {
+  background: #ffffff;
+  border-top: 0px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px 0;
+  clear: left;
 }

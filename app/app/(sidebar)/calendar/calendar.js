@@ -1,62 +1,62 @@
 'use client';
-
-import { Calendar } from '@/components/ui/calendar';
-import { useCallback, useEffect, useState } from 'react';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { createClient } from '@/utils/supabase/client';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import {
   Dialog,
-  DialogContent,
-  DialogClose,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
 } from '@/components/ui/dialog';
-
-import { PlusIcon, TrashIcon } from '@radix-ui/react-icons';
 import { Input } from '@/components/ui/input';
+import DatePicker from 'react-datepicker';
 import { Button } from '@/components/ui/button';
 
+const localizer = momentLocalizer(moment);
+
 const CalendarPage = ({ user, initial }) => {
-  const [date, setDate] = useState(new Date());
-  const [addCalendar, setAddCalendar] = useState();
+  const [view, setView] = useState(Views.MONTH);
+  const [date, setDate] = useState(moment(Date.now()).toDate());
+  const [selected, setSelected] = useState(false);
+  const [startEnd, setStartEnd] = useState([Date.now(), Date.now()]);
+  const [events, setEvents] = useState();
+  const [addEvent, setAddEvent] = useState('');
   const [loading, setLoading] = useState(true);
-  const [calendarItems, setCalendarItems] = useState();
-  const [daysWithItems, setDaysWithItems] = useState([]);
+
   const supabase = createClient();
 
-  const getCalendarItems = useCallback(() => {
-    setCalendarItems(initial);
+  const getEvents = useCallback(() => {
+    let formatted = [];
+    initial.map((data) => {
+      let formattedData = {};
+      formattedData['start'] = moment(data.start).toDate();
+      formattedData['end'] = moment(data.end).toDate();
+      formattedData['title'] = data.title;
+      console.log(formattedData);
+      formatted.push(formattedData);
+    });
+    setEvents(formatted);
     setLoading(false);
   }, [initial]);
 
-  async function deleteCalendarItem(calendar_id) {
-    const { delete_error } = await supabase
-      .from('calendar')
-      .delete()
-      .eq('user_id', user.id)
-      .eq('id', calendar_id);
-
-    let { data, error } = await supabase
-      .from('calendar')
-      .select()
-      .eq('user_id', user.id);
-
-    setCalendarItems(data);
-  }
-
-  async function handleAddCalendar() {
-    if (addCalendar == '' || addCalendar == undefined || addCalendar == null) {
+  async function handleAddEvent() {
+    if (addEvent == '' || addEvent == undefined || addEvent == null) {
       return;
     }
 
     const { insert_error } = await supabase.from('calendar').insert([
       {
-        item: addCalendar,
+        title: addEvent,
         user_id: user?.id,
-        date: date,
-        recurring: false,
+        start: moment(startEnd[0]).format(),
+        end: moment(startEnd[1]).format(),
       },
     ]);
 
@@ -65,113 +65,174 @@ const CalendarPage = ({ user, initial }) => {
       .select()
       .eq('user_id', user.id);
 
-    setCalendarItems(data);
+    setEvents(data);
   }
 
   useEffect(() => {
-    getCalendarItems();
-  }, [getCalendarItems]);
+    getEvents();
+  }, [getEvents]);
+
+  const components = {
+    // event: (event) => {
+    //   console.log(event);
+    // },
+  };
 
   return (
-    <div className='h-[80vh] mt-1 w-full flex items-center'>
-      <div className='h-full w-full flex flex-col md:flex-row items-center justify-center px-20'>
-        {!loading && (
-          <>
-            <section className='w-full flex items-center justify-center'>
-              <Calendar
-                formatters={{
-                  formatDay: (date) => {
-                    let returnString = date.getDate();
-                    return returnString;
-                  },
-                }}
-                mode='single'
-                selected={date}
-                onSelect={(e) => {
-                  setDate(e);
-                }}
-                className='rounded-md border'
-              />
-            </section>
-            <section className='w-full p-8'>
-              <ul className='list-disc'>
-                {calendarItems.map((item) => {
-                  if (!date) return;
-                  // TODO Potential timezone problem?
-                  let itemDateWithoutTime = new Date(item.date);
-                  if (
-                    itemDateWithoutTime.toDateString() != date.toDateString()
-                  ) {
-                    return;
-                  }
-                  return (
-                    <li className='flex flex-row' key={item.id}>
-                      <span className='flex-1'>{item.item}</span>
-                      <button
-                        onClick={() => {
-                          deleteCalendarItem(item.id);
-                        }}
-                      >
-                        <TrashIcon height={28}></TrashIcon>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          </>
-        )}
-      </div>
-
+    <>
       {!loading && (
-        <div
-          id='ADD BUTTON'
-          className='fixed bottom-10 md:bottom-5 left-1/2 translate-x-[-50%] z-20'
-        >
-          <Dialog>
-            <DialogTrigger>
-              <div
-                id='ADD BUTTON'
-                className='p-2 border-[1px] dark:border-dark-gray-400 rounded-2xl md:p-0 bg-background dark:bg-black md:border-none'
+        <div className='h-[83vh] md:h-[88vh] flex flex-col text-white'>
+          <section
+            id='Toolbar'
+            className='py-3 flex flex-row items-center justify-between'
+          >
+            <section className='space-x-2'>
+              <button
+                onClick={() => {
+                  if (view == Views.MONTH) {
+                    console.log(date);
+                    setDate(moment(date).subtract(1, 'M').toDate());
+                  }
+                  if (view == Views.WEEK) {
+                    setDate(moment(date).subtract(1, 'w').toDate());
+                  }
+                  if (view == Views.DAY) {
+                    setDate(moment(date).subtract(1, 'd').toDate());
+                  }
+                }}
+                className='p-2 py-1 border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
               >
-                <div className='p-4 rounded-xl md:rounded-xl bg-light-off-white dark:bg-dark-gray-700 shadow-md cursor-pointer hover:shadow-sm hover:bg-white dark:hover:bg-dark-accent-hover transition-all md:dark:border-[1px] dark:border-dark-gray-400'>
-                  <PlusIcon></PlusIcon>
-                </div>
-              </div>
-            </DialogTrigger>
+                {'<'}
+              </button>
+              <button
+                onClick={() => {
+                  setDate(moment(Date.now()).toDate());
+                }}
+                className='p-2 py-1 border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
+              >
+                Today
+              </button>
+              <button
+                onClick={() => {
+                  if (view == Views.MONTH) {
+                    console.log(date);
+                    setDate(moment(date).add(1, 'M').toDate());
+                  }
+                  if (view == Views.WEEK) {
+                    setDate(moment(date).add(1, 'w').toDate());
+                  }
+                  if (view == Views.DAY) {
+                    setDate(moment(date).add(1, 'd').toDate());
+                  }
+                }}
+                className='p-2 py-1 border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
+              >
+                {'>'}
+              </button>
+            </section>
 
-            <DialogContent className='bg-light-off-white dark:text-white max-w-xs'>
-              <DialogHeader>
-                <DialogTitle className='mb-4'>Add Calendar Item</DialogTitle>
-                <DialogDescription>
-                  <Input
-                    onChange={(event) => {
-                      setAddCalendar(event.target.value);
-                    }}
-                    className='bg-light-off-white dark:text-white border-gray-400 outline-none ring-0 focus:shadow-md dark:placeholder:text-white transition-all'
-                    placeholder='Calendar Item'
-                    type='text'
-                  />
-                  <div className='flex justify-end mt-3'>
-                    <DialogClose asChild>
-                      <Button
-                        onClick={() => {
-                          handleAddCalendar();
-                        }}
-                        className=' border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
-                        variant='outline'
-                      >
-                        Add
-                      </Button>
-                    </DialogClose>
-                  </div>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>{' '}
+            <section>
+              {date.toLocaleString('default', { month: 'short' })}{' '}
+              {date.getDate()}
+            </section>
+            <section className='space-x-1 flex flex-row'>
+              <button
+                onClick={() => {
+                  setView(Views.MONTH);
+                }}
+                className='p-2 py-1 border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
+              >
+                M
+              </button>
+              <button
+                onClick={() => {
+                  setView(Views.WEEK);
+                }}
+                className='p-2 py-1 hidden md:flex border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
+              >
+                W
+              </button>
+              <button
+                onClick={() => {
+                  setView(Views.DAY);
+                }}
+                className='p-2 py-1 border-dark-gray-400 border-[1px] rounded-md bg-dark-gray-700 hover:bg-dark-gray-400 transition-all'
+              >
+                D
+              </button>
+            </section>
+          </section>
+          <Calendar
+            events={events}
+            view={view}
+            toolbar={false}
+            date={date}
+            localizer={localizer}
+            components={components}
+            onNavigate={(date) => {
+              setDate(date);
+            }}
+            onView={(view) => {
+              setView(view);
+            }}
+            onSelectSlot={({ start, end }) => {
+              setStartEnd([start, end]);
+              if (!selected) {
+                setSelected(true);
+              }
+              console.log(selected);
+            }}
+            selectable
+          />
         </div>
       )}
-    </div>
+      <Dialog open={selected} onOpenChange={setSelected}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className='text-white'>Add Event</DialogTitle>
+          </DialogHeader>
+          <DialogDescription className='text-white'>
+            <Input
+              value={addEvent}
+              onChange={(e) => setAddEvent(e.target.value)}
+            ></Input>
+            <div className='flex flex-row justify-between mt-4'>
+              <div>
+                <span>Start: </span>
+                <DatePicker
+                  className='bg-transparent border border-dark-gray-400 rounded-md p-2 text-white w-full'
+                  selected={startEnd[0]}
+                  showTimeSelect
+                  dateFormat='MMMM d, yyyy h:mm aa'
+                ></DatePicker>
+              </div>
+              <div>
+                <span>End: </span>
+                <DatePicker
+                  className='bg-transparent border border-dark-gray-400 rounded-md p-2 text-white w-full'
+                  selected={startEnd[1]}
+                  showTimeSelect
+                  dateFormat='MMMM d, yyyy h:mm aa'
+                ></DatePicker>
+              </div>
+            </div>
+            <div className='flex justify-end mt-3'>
+              <DialogClose asChild>
+                <Button
+                  onClick={() => {
+                    handleAddEvent();
+                  }}
+                  className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                  variant='outline'
+                >
+                  Add
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
