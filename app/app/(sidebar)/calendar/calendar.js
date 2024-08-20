@@ -29,20 +29,26 @@ const CalendarPage = ({ user, initial }) => {
   const [events, setEvents] = useState();
   const [addEvent, setAddEvent] = useState('');
   const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState(false);
+  const [changeId, setChangeId] = useState('');
 
   const supabase = createClient();
 
-  const getEvents = useCallback(() => {
+  function formatEventData(events) {
     let formatted = [];
-    initial.map((data) => {
+    events.map((data) => {
       let formattedData = {};
       formattedData['start'] = moment(data.start).toDate();
       formattedData['end'] = moment(data.end).toDate();
       formattedData['title'] = data.title;
-      console.log(formattedData);
+      formattedData['id'] = data.id;
       formatted.push(formattedData);
     });
-    setEvents(formatted);
+    return formatted;
+  }
+
+  const getEvents = useCallback(() => {
+    setEvents(formatEventData(initial));
     setLoading(false);
   }, [initial]);
 
@@ -65,7 +71,43 @@ const CalendarPage = ({ user, initial }) => {
       .select()
       .eq('user_id', user.id);
 
-    setEvents(data);
+    setEvents(formatEventData(data));
+  }
+
+  async function handleChangeEvent() {
+    if (addEvent == '' || addEvent == undefined || addEvent == null) {
+      return;
+    }
+
+    let { data: updateData, error: updateError } = await supabase
+      .from('calendar')
+      .update({
+        title: addEvent,
+        start: moment(startEnd[0]).format(),
+        end: moment(startEnd[1]).format(),
+      })
+      .eq('id', changeId);
+
+    let { data, error } = await supabase
+      .from('calendar')
+      .select()
+      .eq('user_id', user.id);
+
+    setEvents(formatEventData(data));
+  }
+
+  async function handleDelete() {
+    let { data: updateData, error: updateError } = await supabase
+      .from('calendar')
+      .delete()
+      .eq('id', changeId);
+
+    let { data, error } = await supabase
+      .from('calendar')
+      .select()
+      .eq('user_id', user.id);
+
+    setEvents(formatEventData(data));
   }
 
   useEffect(() => {
@@ -81,7 +123,7 @@ const CalendarPage = ({ user, initial }) => {
   return (
     <>
       {!loading && (
-        <div className='h-[83vh] md:h-[88vh] flex flex-col text-white'>
+        <div className='h-[83vh] md:h-[88vh] flex flex-col-reverse md:flex-col text-white'>
           <section
             id='Toolbar'
             className='py-3 flex flex-row items-center justify-between'
@@ -163,6 +205,12 @@ const CalendarPage = ({ user, initial }) => {
             </section>
           </section>
           <Calendar
+            onDoubleClickEvent={(event) => {
+              setChangeId(event.id);
+              setAddEvent(event.title);
+              setStartEnd([event.start, event.end]);
+              setEditing(true);
+            }}
             events={events}
             view={view}
             toolbar={false}
@@ -180,16 +228,24 @@ const CalendarPage = ({ user, initial }) => {
               if (!selected) {
                 setSelected(true);
               }
-              console.log(selected);
             }}
             selectable
           />
         </div>
       )}
-      <Dialog open={selected} onOpenChange={setSelected}>
+      <Dialog
+        open={selected || editing}
+        onOpenChange={(state) => {
+          setEditing(state);
+          setSelected(state);
+        }}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className='text-white'>Add Event</DialogTitle>
+            <DialogTitle className='text-white'>
+              {selected && 'Add Event'}
+              {editing && 'Edit Event'}
+            </DialogTitle>
           </DialogHeader>
           <DialogDescription className='text-white'>
             <Input
@@ -218,14 +274,32 @@ const CalendarPage = ({ user, initial }) => {
             </div>
             <div className='flex justify-end mt-3'>
               <DialogClose asChild>
+                {editing && (
+                  <Button
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                    className='border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                    variant='outline'
+                  >
+                    Delete
+                  </Button>
+                )}
+              </DialogClose>
+              <DialogClose asChild>
                 <Button
                   onClick={() => {
-                    handleAddEvent();
+                    if (selected) {
+                      handleAddEvent();
+                    } else if (editing) {
+                      handleChangeEvent();
+                    }
                   }}
-                  className='  border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
+                  className='border-gray-400 dark:border-dark-gray-400 dark:text-white dark:bg-dark-gray-800 hover:dark:bg-dark-gray-500 bg-transparent text-black hover:bg-light-off-white hover:shadow-md transition-all'
                   variant='outline'
                 >
-                  Add
+                  {selected && 'Add'}
+                  {editing && 'Change'}
                 </Button>
               </DialogClose>
             </div>

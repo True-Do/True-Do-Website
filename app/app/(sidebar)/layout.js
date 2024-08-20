@@ -17,6 +17,8 @@ import {
 const mobileIconSize = 25;
 
 const Layout = ({ children }) => {
+  const path = usePathname();
+
   return (
     <div className='md:flex md:flex-row screen-size bg-background dark:bg-black'>
       {/* Sidebar for large screens */}
@@ -70,7 +72,11 @@ const Layout = ({ children }) => {
           <NavItem item={'notes'}>
             <FaNoteSticky size={mobileIconSize} />
           </NavItem>
-          <div className='size-10'></div>
+          {path.split('/')[2] == 'calendar' ? (
+            <></>
+          ) : (
+            <div className='size-10'></div>
+          )}
           <NavItem item={'calendar'}>
             <FaCalendar size={mobileIconSize} />
           </NavItem>
