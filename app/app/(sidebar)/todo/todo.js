@@ -218,7 +218,7 @@ const Todo = ({ user }) => {
                   className='flex flex-row items-center py-3 px-4 '
                 >
                   <h2
-                    className='text-lg md:text-xl font-bold flex-1 break-all cursor-pointer'
+                    className='text-lg md:text-xl font-bold flex-1 break-words cursor-pointer mr-2'
                     onClick={() => {
                       let _open = { ...open };
                       _open[category.id] = !_open[category.id];
@@ -268,13 +268,13 @@ const Todo = ({ user }) => {
                       <div
                         key={todo.id}
                         id={todo.id}
-                        className='text-base flex flex-row hyphens-auto break-all py-[.35rem] px-3'
+                        className='text-base flex flex-row break-words py-[.35rem] px-3 md:px-2 pl-5'
                       >
                         <Checkbox
                           onClick={() => deleteTodo(todo.id)}
-                          className='md:mr-2 mr-1 mt-[.17rem] md:mt-[.29rem] ml-0'
+                          className='md:mr-2 mr-1 mt-[.28rem] md:mt-[.29rem] ml-0'
                         />
-                        <span className='text-sm md:text-base'>
+                        <span className='text-[.9rem] md:text-base'>
                           {todo.label}
                         </span>
                       </div>
