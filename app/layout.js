@@ -6,10 +6,44 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin', 'latin-ext'],
 });
 
+const APP_NAME = 'True Do';
+const APP_DEFAULT_TITLE = 'True Do';
+const APP_TITLE_TEMPLATE = '%s';
+const APP_DESCRIPTION = 'True Do is your Productivity Powerhouse';
+
 export const metadata = {
-  manifest: '/manifest.json',
-  title: 'True Do',
-  description: 'True Do is Your Productivity Powerhouse',
+  applicationName: APP_NAME,
+  title: {
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
+  },
+  description: APP_DESCRIPTION,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary',
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({ children }) {
