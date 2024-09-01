@@ -37,7 +37,7 @@
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
-  "short_name": "TrueDo",
+  "short_name": "True Do",
   "dir": "ltr",
   "categories": ["productivity"]
 }

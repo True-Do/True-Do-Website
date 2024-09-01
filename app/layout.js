@@ -44,6 +44,7 @@ export const metadata = {
     },
     description: APP_DESCRIPTION,
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({ children }) {
