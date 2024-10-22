@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 
 const fetcher = async (url) => {
   const supabase = createClient();

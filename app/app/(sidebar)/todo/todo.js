@@ -2,7 +2,7 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useEffect, useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 import { useTodos, useCategories } from './hooks';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -57,6 +57,7 @@ const Todo = ({ user }) => {
     isLoading: todosLoading,
     mutate: mutateTodos,
   } = useTodos(user.id);
+
   const {
     categories,
     isLoading: categoriesLoading,

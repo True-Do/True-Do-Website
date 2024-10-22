@@ -1,6 +1,6 @@
 'use client';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 import { useState } from 'react';

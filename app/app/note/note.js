@@ -16,7 +16,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import ToolTip from '@/components/sidebar/ToolBar';
 import Link from 'next/link';
 
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 import { ResetIcon, TrashIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/navigation';
 import revalidate from './actions';

@@ -1,16 +1,89 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { login, signup, oauth } from './actions';
 
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { Label } from '@/components/ui/label';
 
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
+import { authActions } from '@/lib/slices/authSlice';
+import { useMutation } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export default function LoginPage() {
-  const supabase = createClient();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const loginMutation = useMutation({
+    mutationFn: async ({ email, password }) => {
+      const supabase = createClient();
+
+      const data = {
+        email,
+        password,
+      };
+
+      const { data: user, error } = await supabase.auth.signInWithPassword(
+        data
+      );
+
+      if (error) {
+        router.push('/auth/error?error=login');
+      }
+
+      return user;
+    },
+    onSuccess: (data) => {
+      dispatch(authActions.login(data));
+      router.push('/app/todo');
+      revalidatePath('/app/todo', 'layout');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const signupMutation = useMutation({
+    mutationFn: async ({ email, password }) => {
+      const supabase = createClient();
+
+      const data = {
+        email,
+        password,
+      };
+
+      const { data: user, error } = await supabase.auth.signUp(data);
+
+      if (error) {
+        router.push('/auth/error?error=signup');
+      }
+
+      return user;
+    },
+    onSuccess: (data) => {
+      dispatch(authActions.login(data));
+      router.push('/app/todo');
+      revalidatePath('/app/todo', 'layout');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  async function login(formData) {
+    const email = formData.get('email');
+    const password = formData.get('password');
+    loginMutation.mutate({ email, password });
+  }
+
+  async function signup(formData) {
+    const email = formData.get('email');
+    const password = formData.get('password');
+    signupMutation.mutate({ email, password });
+  }
 
   return (
     <div className='screen-size w-full flex justify-center md:flex md:flex-row'>

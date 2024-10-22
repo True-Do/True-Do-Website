@@ -6,7 +6,7 @@ import clip from 'text-clipper';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Search } from '@/components/ui/search';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 
 const fetcher = async (url) => {
   const supabase = createClient();
